@@ -136,8 +136,6 @@ class Stream(LoopThread):
 
         self.writer = Writer(self.q, on_write=self.on_write, type=self.output_type, config=self.output_config, path=self.path, frequency=self.reader.frequency)
         self.writer.start()
-        if self.input_type == 'emergent':
-            self.writer.output.set_emergent_object(self.reader.input.input)
 
         if reading:
             self.start_reading()

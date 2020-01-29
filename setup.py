@@ -4,8 +4,6 @@ from setuptools import setup
 with open('.version', 'r') as f:
     VERSION = f.read()
 
-PYEMERGENT_VERSION='0.1.4'
-
 setup(
     name='senseye_cameras',
     description='Senseye Camera Utilities',
