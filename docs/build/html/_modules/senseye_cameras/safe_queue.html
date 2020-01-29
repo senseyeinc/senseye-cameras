@@ -1,0 +1,300 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>senseye_cameras.safe_queue &mdash; senseye_cameras  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> senseye_cameras
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html#modules">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html#input-types">Input Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html#using-inputs">Using Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html#output-types">Output Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html#using-outputs">Using Outputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../intro.html#streams">Streams</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">senseye_cameras</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>senseye_cameras.safe_queue</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for senseye_cameras.safe_queue</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">queue</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<div class="viewcode-block" id="SafeQueue"><a class="viewcode-back" href="../../senseye_cameras.html#senseye_cameras.safe_queue.SafeQueue">[docs]</a><span class="k">class</span> <span class="nc">SafeQueue</span><span class="p">(</span><span class="n">queue</span><span class="o">.</span><span class="n">Queue</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class that extends Python Queue to safely handle exceptions from Queue</span>
+<span class="sd">    accessor methods.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxsize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">module</span><span class="o">=</span><span class="s1">&#39;Generic&#39;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="n">maxsize</span><span class="p">)</span>
+
+        <span class="c1"># Information on where the queue is being used for debug information</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
+
+<div class="viewcode-block" id="SafeQueue.put"><a class="viewcode-back" href="../../senseye_cameras.html#senseye_cameras.safe_queue.SafeQueue.put">[docs]</a>    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempt to insert an item into the queue, handling the Full exception if</span>
+<span class="sd">        it arises. Return True if item is successfully enqueued. If a force was</span>
+<span class="sd">        required, return the dequeued item.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">full</span><span class="p">()</span> <span class="ow">and</span> <span class="n">force</span><span class="p">:</span>
+                <span class="c1"># When force is enabled, do a blocking dequeue</span>
+                <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="o">=</span><span class="n">item</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Full</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Queue module </span><span class="si">{self.module}</span><span class="s1"> is full. </span><span class="si">{item}</span><span class="s1"> not inserted&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="n">ret</span></div>
+
+<div class="viewcode-block" id="SafeQueue.put_nowait"><a class="viewcode-back" href="../../senseye_cameras.html#senseye_cameras.safe_queue.SafeQueue.put_nowait">[docs]</a>    <span class="k">def</span> <span class="nf">put_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Non-blocking put with exception handling.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force</span><span class="o">=</span><span class="n">force</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SafeQueue.get"><a class="viewcode-back" href="../../senseye_cameras.html#senseye_cameras.safe_queue.SafeQueue.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempt to retrieve an element from the queue, handling the Empty</span>
+<span class="sd">        exception if it arises. Returns the item or None if dequeue is</span>
+<span class="sd">        unsuccessful.</span>
+
+<span class="sd">        Note: It is possible that a None object was enqueued. Checking for a</span>
+<span class="sd">        None value on a get() call will be ambiguous in this case. It may mean</span>
+<span class="sd">        the original item was None or that the queue is empty.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="n">block</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">queue</span><span class="o">.</span><span class="n">Empty</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Queue module </span><span class="si">{self.module}</span><span class="s1"> is empty. Capacity is </span><span class="si">{self.maxsize}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="SafeQueue.get_nowait"><a class="viewcode-back" href="../../senseye_cameras.html#senseye_cameras.safe_queue.SafeQueue.get_nowait">[docs]</a>    <span class="k">def</span> <span class="nf">get_nowait</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Non-blocking get with exception handling.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">block</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="SafeQueue.to_list"><a class="viewcode-back" href="../../senseye_cameras.html#senseye_cameras.safe_queue.SafeQueue.to_list">[docs]</a>    <span class="k">def</span> <span class="nf">to_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts queue to a list.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ret_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">mutex</span><span class="p">:</span>
+            <span class="n">ret_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret_list</span></div>
+
+<div class="viewcode-block" id="SafeQueue.remove_existing"><a class="viewcode-back" href="../../senseye_cameras.html#senseye_cameras.safe_queue.SafeQueue.remove_existing">[docs]</a>    <span class="k">def</span> <span class="nf">remove_existing</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_elements</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Pops items from self queue and appends to a list.</span>
+<span class="sd">        Mutates self queue by removing qsize elements.</span>
+
+<span class="sd">        Note: If you force an item to be input into the queue during this</span>
+<span class="sd">        operation, you may clobber data. For example:</span>
+<span class="sd">        - SafeQueue size is 10 when remove_existing() is called</span>
+<span class="sd">        - SafeQueue maxsize is 10</span>
+<span class="sd">        - SafeQueue.put_nowait(an_item, force=True)</span>
+<span class="sd">        - The first item is forced off, and may not have been grabbed into the</span>
+<span class="sd">        list.</span>
+<span class="sd">        - Using a mutex here may cause a deadlock.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">outgoing</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Attempt to remove passed number of elements, with all elements</span>
+        <span class="c1"># being the default.</span>
+        <span class="c1">#</span>
+        <span class="c1"># If number requested is more than number of elements, remove all</span>
+        <span class="c1"># elements</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">num_elements</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">num_elements</span> <span class="ow">or</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">qsize</span><span class="p">():</span>
+            <span class="n">size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">qsize</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">size</span><span class="p">):</span>
+            <span class="n">outgoing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_nowait</span><span class="p">())</span>
+
+        <span class="k">return</span> <span class="n">outgoing</span></div>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Outputs readable version of items in queue by using list representation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">to_list</span><span class="p">()</span><span class="o">.</span><span class="fm">__str__</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, SenseyeInc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

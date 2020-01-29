@@ -187,12 +187,136 @@
 <div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </div>
+<div class="section" id="module-senseye_cameras.loop_thread">
+<span id="senseye-cameras-loop-thread-module"></span><h2>senseye_cameras.loop_thread module<a class="headerlink" href="#module-senseye_cameras.loop_thread" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="senseye_cameras.loop_thread.LoopThread">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.loop_thread.</code><code class="sig-name descname">LoopThread</code><span class="sig-paren">(</span><em class="sig-param">frequency=1000</em>, <em class="sig-param">stop_on_error=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">threading.Thread</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Class to follow common pattern of looping thread</p>
+<dl class="exception">
+<dt id="senseye_cameras.loop_thread.LoopThread.Stop">
+<em class="property">exception </em><code class="sig-name descname">Stop</code><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread.Stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread.Stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception Type That will immediately break out of the loop
+Can only be called from within the loop function</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.loop_thread.LoopThread.loop">
+<code class="sig-name descname">loop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread.loop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread.loop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.loop_thread.LoopThread.on_error">
+<code class="sig-name descname">on_error</code><span class="sig-paren">(</span><em class="sig-param">e</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread.on_error"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread.on_error" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.loop_thread.LoopThread.on_start">
+<code class="sig-name descname">on_start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread.on_start"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread.on_start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.loop_thread.LoopThread.on_stop">
+<code class="sig-name descname">on_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread.on_stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread.on_stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.loop_thread.LoopThread.restart">
+<code class="sig-name descname">restart</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread.restart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread.restart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart at thread
+Seperated from start / stop because thread functions like join  / is alive
+May return unexpected results from this</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.loop_thread.LoopThread.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.loop_thread.LoopThread.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><em class="sig-param">join=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/loop_thread.html#LoopThread.stop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.loop_thread.LoopThread.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-senseye_cameras.safe_queue">
+<span id="senseye-cameras-safe-queue-module"></span><h2>senseye_cameras.safe_queue module<a class="headerlink" href="#module-senseye_cameras.safe_queue" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="senseye_cameras.safe_queue.SafeQueue">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.safe_queue.</code><code class="sig-name descname">SafeQueue</code><span class="sig-paren">(</span><em class="sig-param">maxsize=0</em>, <em class="sig-param">module='Generic'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/safe_queue.html#SafeQueue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.safe_queue.SafeQueue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">queue.Queue</span></code></p>
+<p>Class that extends Python Queue to safely handle exceptions from Queue
+accessor methods.</p>
+<dl class="method">
+<dt id="senseye_cameras.safe_queue.SafeQueue.get">
+<code class="sig-name descname">get</code><span class="sig-paren">(</span><em class="sig-param">block=True</em>, <em class="sig-param">timeout=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/safe_queue.html#SafeQueue.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.safe_queue.SafeQueue.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt to retrieve an element from the queue, handling the Empty
+exception if it arises. Returns the item or None if dequeue is
+unsuccessful.</p>
+<p>Note: It is possible that a None object was enqueued. Checking for a
+None value on a get() call will be ambiguous in this case. It may mean
+the original item was None or that the queue is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.safe_queue.SafeQueue.get_nowait">
+<code class="sig-name descname">get_nowait</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/safe_queue.html#SafeQueue.get_nowait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.safe_queue.SafeQueue.get_nowait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-blocking get with exception handling.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.safe_queue.SafeQueue.put">
+<code class="sig-name descname">put</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">block=True</em>, <em class="sig-param">timeout=None</em>, <em class="sig-param">force=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/safe_queue.html#SafeQueue.put"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.safe_queue.SafeQueue.put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attempt to insert an item into the queue, handling the Full exception if
+it arises. Return True if item is successfully enqueued. If a force was
+required, return the dequeued item.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.safe_queue.SafeQueue.put_nowait">
+<code class="sig-name descname">put_nowait</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">force=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/safe_queue.html#SafeQueue.put_nowait"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.safe_queue.SafeQueue.put_nowait" title="Permalink to this definition">¶</a></dt>
+<dd><p>Non-blocking put with exception handling.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.safe_queue.SafeQueue.remove_existing">
+<code class="sig-name descname">remove_existing</code><span class="sig-paren">(</span><em class="sig-param">num_elements=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/safe_queue.html#SafeQueue.remove_existing"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.safe_queue.SafeQueue.remove_existing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pops items from self queue and appends to a list.
+Mutates self queue by removing qsize elements.</p>
+<p>Note: If you force an item to be input into the queue during this
+operation, you may clobber data. For example:
+- SafeQueue size is 10 when remove_existing() is called
+- SafeQueue maxsize is 10
+- SafeQueue.put_nowait(an_item, force=True)
+- The first item is forced off, and may not have been grabbed into the
+list.
+- Using a mutex here may cause a deadlock.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.safe_queue.SafeQueue.to_list">
+<code class="sig-name descname">to_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/safe_queue.html#SafeQueue.to_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.safe_queue.SafeQueue.to_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts queue to a list.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-senseye_cameras.stream">
 <span id="senseye-cameras-stream-module"></span><h2>senseye_cameras.stream module<a class="headerlink" href="#module-senseye_cameras.stream" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="senseye_cameras.stream.Reader">
 <em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.stream.</code><code class="sig-name descname">Reader</code><span class="sig-paren">(</span><em class="sig-param">q</em>, <em class="sig-param">on_read=None</em>, <em class="sig-param">type='usb'</em>, <em class="sig-param">config={}</em>, <em class="sig-param">id=0</em>, <em class="sig-param">frequency=None</em>, <em class="sig-param">reading=False</em>, <em class="sig-param">writing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/stream.html#Reader"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.stream.Reader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.loop_thread.LoopThread</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.loop_thread.LoopThread" title="senseye_cameras.loop_thread.LoopThread"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.loop_thread.LoopThread</span></code></a></p>
 <p>Reads data into a queue.</p>
 <dl class="method">
 <dt id="senseye_cameras.stream.Reader.loop">
@@ -209,7 +333,7 @@
 <dl class="class">
 <dt id="senseye_cameras.stream.Stream">
 <em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.stream.</code><code class="sig-name descname">Stream</code><span class="sig-paren">(</span><em class="sig-param">input_type='usb'</em>, <em class="sig-param">input_config={}</em>, <em class="sig-param">id=0</em>, <em class="sig-param">output_type='ffmpeg'</em>, <em class="sig-param">output_config={}</em>, <em class="sig-param">path='.'</em>, <em class="sig-param">input_frequency=None</em>, <em class="sig-param">output_frequency=None</em>, <em class="sig-param">reading=False</em>, <em class="sig-param">writing=False</em>, <em class="sig-param">on_read=None</em>, <em class="sig-param">on_write=None</em>, <em class="sig-param">min_disk_space_bytes=-1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/stream.html#Stream"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.stream.Stream" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.loop_thread.LoopThread</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.loop_thread.LoopThread" title="senseye_cameras.loop_thread.LoopThread"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.loop_thread.LoopThread</span></code></a></p>
 <p>IO Stream with a reader/writer on seperate threads.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><p>input_type/input_config/id: see create_input.
@@ -264,7 +388,7 @@ on_read/on_write (func): called on frame write. Function should take fn(data=Non
 <dl class="class">
 <dt id="senseye_cameras.stream.Writer">
 <em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.stream.</code><code class="sig-name descname">Writer</code><span class="sig-paren">(</span><em class="sig-param">q</em>, <em class="sig-param">on_write=None</em>, <em class="sig-param">type='ffmpeg'</em>, <em class="sig-param">config={}</em>, <em class="sig-param">path=0</em>, <em class="sig-param">frequency=None</em>, <em class="sig-param">writing=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/stream.html#Writer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.stream.Writer" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.loop_thread.LoopThread</span></code></p>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.loop_thread.LoopThread" title="senseye_cameras.loop_thread.LoopThread"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.loop_thread.LoopThread</span></code></a></p>
 <p>Writes data from a queue into an output file.</p>
 <dl class="method">
 <dt id="senseye_cameras.stream.Writer.initialize_writer">

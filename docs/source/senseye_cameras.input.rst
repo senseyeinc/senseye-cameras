@@ -20,7 +20,6 @@ senseye\_cameras.input.audio\_port\_input module
    :undoc-members:
    :show-inheritance:
 
-
 senseye\_cameras.input.camera\_pylon module
 -------------------------------------------
 

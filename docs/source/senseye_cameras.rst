@@ -12,6 +12,22 @@ Subpackages
 Submodules
 ----------
 
+senseye\_cameras.loop\_thread module
+------------------------------------
+
+.. automodule:: senseye_cameras.loop_thread
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+senseye\_cameras.safe\_queue module
+-----------------------------------
+
+.. automodule:: senseye_cameras.safe_queue
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 senseye\_cameras.stream module
 ------------------------------
 

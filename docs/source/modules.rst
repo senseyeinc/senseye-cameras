@@ -5,3 +5,4 @@ senseye_cameras
    :maxdepth: 4
 
    senseye_cameras
+   setup
