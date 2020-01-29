@@ -24,7 +24,5 @@ def create_output(type='usb', *args, **kwargs):
         return AudioFfmpegOutput(*args, **kwargs)
     if type == 'audio_port':
         return AudioPortOutput(*args, **kwargs)
-    if type == 'video_emergent':
-        return VideoEmergent(*args, **kwargs)
 
     log.warning(f'Output type: {type} not supported.')

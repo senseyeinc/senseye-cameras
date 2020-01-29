@@ -1,5 +1,4 @@
 import time
-from resources import config
 from senseye_cameras import Stream
 
 s = Stream(

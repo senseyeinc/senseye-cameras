@@ -176,8 +176,6 @@
         <span class="k">return</span> <span class="n">AudioFfmpegOutput</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;audio_port&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">AudioPortOutput</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;video_emergent&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">VideoEmergent</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">log</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Output type: </span><span class="si">{type}</span><span class="s1"> not supported.&#39;</span><span class="p">)</span></div>
 </pre></div>
