@@ -21,12 +21,7 @@ jobs:
         --user
     - name: Build a binary wheel and a source tarball
       run: >-
-        python -m
-        pep517.build
-        --source
-        --binary
-        --out-dir dist/
-        .
+        python setup.py bdist_wheel
     - name: Publish distribution 📦 to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
