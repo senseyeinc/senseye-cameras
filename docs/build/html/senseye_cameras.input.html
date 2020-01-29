@@ -1,0 +1,485 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>senseye_cameras.input package &mdash; senseye_cameras  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> senseye_cameras
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#modules">Modules</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#input-types">Input Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#using-inputs">Using Inputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#output-types">Output Types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#using-outputs">Using Outputs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="intro.html#streams">Streams</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">senseye_cameras</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>senseye_cameras.input package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/senseye_cameras.input.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="senseye-cameras-input-package">
+<h1>senseye_cameras.input package<a class="headerlink" href="#senseye-cameras-input-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-senseye_cameras.input.audio_ffmpeg_input">
+<span id="senseye-cameras-input-audio-ffmpeg-input-module"></span><h2>senseye_cameras.input.audio_ffmpeg_input module<a class="headerlink" href="#module-senseye_cameras.input.audio_ffmpeg_input" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.input.audio_ffmpeg_input.</code><code class="sig-name descname">AudioFfmpegInput</code><span class="sig-paren">(</span><em class="sig-param">id=0</em>, <em class="sig-param">config={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_ffmpeg_input.html#AudioFfmpegInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.input.input.Input" title="senseye_cameras.input.input.Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.input.input.Input</span></code></a></p>
+<p>Reads in audio using ffmpeg.
+Args:</p>
+<blockquote>
+<div><p>id (str): audio device index
+config (dict): Configuration dictionary. Accepted keywords:</p>
+<blockquote>
+<div><p>channels (int): number of audio channels
+block_size (int): number of bytes to read in per iteration
+samplerate (int): audio sample rate
+format (str): audio codec</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="method">
+<dt id="senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_ffmpeg_input.html#AudioFfmpegInput.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properly disposes of the camera object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput.get_dshow_audio_device">
+<code class="sig-name descname">get_dshow_audio_device</code><span class="sig-paren">(</span><em class="sig-param">id</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_ffmpeg_input.html#AudioFfmpegInput.get_dshow_audio_device"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput.get_dshow_audio_device" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_ffmpeg_input.html#AudioFfmpegInput.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the camera.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_ffmpeg_input.html#AudioFfmpegInput.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_ffmpeg_input.AudioFfmpegInput.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-senseye_cameras.input.audio_port_input">
+<span id="senseye-cameras-input-audio-port-input-module"></span><h2>senseye_cameras.input.audio_port_input module<a class="headerlink" href="#module-senseye_cameras.input.audio_port_input" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="senseye_cameras.input.audio_port_input.AudioPortInput">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.input.audio_port_input.</code><code class="sig-name descname">AudioPortInput</code><span class="sig-paren">(</span><em class="sig-param">id=0</em>, <em class="sig-param">config={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_port_input.html#AudioPortInput"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_port_input.AudioPortInput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.input.input.Input" title="senseye_cameras.input.input.Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.input.input.Input</span></code></a></p>
+<p>Reads in audio using portaudio/sounddevice.
+Args:</p>
+<blockquote>
+<div><p>id (str): device index
+config (dict): Configuration dictionary. Accepted keywords:</p>
+<blockquote>
+<div><p>channels (int): number of audio channels
+block_size (int): number of bytes to read in per iteration
+samplerate (int): audio sample rate</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="method">
+<dt id="senseye_cameras.input.audio_port_input.AudioPortInput.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_port_input.html#AudioPortInput.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_port_input.AudioPortInput.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properly disposes of the camera object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.audio_port_input.AudioPortInput.configure">
+<code class="sig-name descname">configure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_port_input.html#AudioPortInput.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_port_input.AudioPortInput.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Supported configurations: samplerate, channels, blocksize</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.audio_port_input.AudioPortInput.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_port_input.html#AudioPortInput.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_port_input.AudioPortInput.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens Audio stream</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.audio_port_input.AudioPortInput.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/audio_port_input.html#AudioPortInput.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.audio_port_input.AudioPortInput.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads in audio blocks</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-senseye_cameras.input.camera_pylon">
+<span id="senseye-cameras-input-camera-pylon-module"></span><h2>senseye_cameras.input.camera_pylon module<a class="headerlink" href="#module-senseye_cameras.input.camera_pylon" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="senseye_cameras.input.camera_pylon.CameraPylon">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.input.camera_pylon.</code><code class="sig-name descname">CameraPylon</code><span class="sig-paren">(</span><em class="sig-param">id=0</em>, <em class="sig-param">config={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_pylon.html#CameraPylon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_pylon.CameraPylon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.input.input.Input" title="senseye_cameras.input.input.Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.input.input.Input</span></code></a></p>
+<p>Camera that interfaces with pylon/basler cameras.</p>
+<dl>
+<dt>Args:</dt><dd><p>id (int): Id of the pylon camera.
+config (dict): Configuration dictionary. Accepted keywords:</p>
+<blockquote>
+<div><p>pfs (str): path to a pfs file.</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="method">
+<dt id="senseye_cameras.input.camera_pylon.CameraPylon.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_pylon.html#CameraPylon.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_pylon.CameraPylon.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properly disposes of the camera object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.camera_pylon.CameraPylon.configure">
+<code class="sig-name descname">configure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_pylon.html#CameraPylon.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_pylon.CameraPylon.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pylon camera configuration. Requires the pylon camera to have been opened already.
+The order of these statements is important.
+Populates self.config with set values.
+Logs camera start.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.camera_pylon.CameraPylon.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_pylon.html#CameraPylon.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_pylon.CameraPylon.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the camera.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.camera_pylon.CameraPylon.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_pylon.html#CameraPylon.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_pylon.CameraPylon.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="senseye_cameras.input.camera_pylon.PylonCamera">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.input.camera_pylon.</code><code class="sig-name descname">PylonCamera</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_pylon.html#PylonCamera"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_pylon.PylonCamera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.input.input.Input" title="senseye_cameras.input.input.Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.input.input.Input</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="senseye_cameras.input.camera_pylon.encode_framenumber">
+<code class="sig-prename descclassname">senseye_cameras.input.camera_pylon.</code><code class="sig-name descname">encode_framenumber</code><span class="sig-paren">(</span><em class="sig-param">np_image</em>, <em class="sig-param">n</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_pylon.html#encode_framenumber"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_pylon.encode_framenumber" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="senseye_cameras.input.camera_pylon.encode_timestamp">
+<code class="sig-prename descclassname">senseye_cameras.input.camera_pylon.</code><code class="sig-name descname">encode_timestamp</code><span class="sig-paren">(</span><em class="sig-param">np_image</em>, <em class="sig-param">timestamp</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_pylon.html#encode_timestamp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_pylon.encode_timestamp" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-senseye_cameras.input.camera_raw_video">
+<span id="senseye-cameras-input-camera-raw-video-module"></span><h2>senseye_cameras.input.camera_raw_video module<a class="headerlink" href="#module-senseye_cameras.input.camera_raw_video" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="senseye_cameras.input.camera_raw_video.CameraRawVideo">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.input.camera_raw_video.</code><code class="sig-name descname">CameraRawVideo</code><span class="sig-paren">(</span><em class="sig-param">id=0</em>, <em class="sig-param">config={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_raw_video.html#CameraRawVideo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_raw_video.CameraRawVideo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.input.input.Input" title="senseye_cameras.input.input.Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.input.input.Input</span></code></a></p>
+<p>Treats raw video as a camera.
+Args:</p>
+<blockquote>
+<div><p>id (str): path to the raw video file.
+config (dict): Configuration dictionary. Accepted keywords:</p>
+<blockquote>
+<div><p>res (tuple): frame size</p>
+</div></blockquote>
+</div></blockquote>
+<dl class="method">
+<dt id="senseye_cameras.input.camera_raw_video.CameraRawVideo.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_raw_video.html#CameraRawVideo.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_raw_video.CameraRawVideo.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properly disposes of the camera object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.camera_raw_video.CameraRawVideo.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_raw_video.html#CameraRawVideo.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_raw_video.CameraRawVideo.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens raw video as a bytes file.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.camera_raw_video.CameraRawVideo.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_raw_video.html#CameraRawVideo.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_raw_video.CameraRawVideo.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads in raw video.
+config[‘res’] dictates how many bytes are read in.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-senseye_cameras.input.camera_usb">
+<span id="senseye-cameras-input-camera-usb-module"></span><h2>senseye_cameras.input.camera_usb module<a class="headerlink" href="#module-senseye_cameras.input.camera_usb" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="senseye_cameras.input.camera_usb.CameraUsb">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.input.camera_usb.</code><code class="sig-name descname">CameraUsb</code><span class="sig-paren">(</span><em class="sig-param">id=0</em>, <em class="sig-param">config={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_usb.html#CameraUsb"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_usb.CameraUsb" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#senseye_cameras.input.input.Input" title="senseye_cameras.input.input.Input"><code class="xref py py-class docutils literal notranslate"><span class="pre">senseye_cameras.input.input.Input</span></code></a></p>
+<p>Opens a usb camera or video using OpenCV.</p>
+<dl>
+<dt>Args:</dt><dd><p>id (int OR str): id of the camera, or path to a video file.
+config (dict): Configuration dictionary. Accepted keywords:</p>
+<blockquote>
+<div><p>res (tuple): frame size
+codec (str)
+fps (int)</p>
+</div></blockquote>
+</dd>
+</dl>
+<dl class="method">
+<dt id="senseye_cameras.input.camera_usb.CameraUsb.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_usb.html#CameraUsb.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_usb.CameraUsb.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properly disposes of the camera object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.camera_usb.CameraUsb.configure">
+<code class="sig-name descname">configure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_usb.html#CameraUsb.configure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_usb.CameraUsb.configure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configures the camera using a config.
+Supported configurations: fps, codec, res</p>
+<p>Fills self.config with camera attributes.
+Logs camera start.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.camera_usb.CameraUsb.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_usb.html#CameraUsb.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_usb.CameraUsb.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the camera.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.camera_usb.CameraUsb.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/camera_usb.html#CameraUsb.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.camera_usb.CameraUsb.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads in frames.
+Converts frames from BGR to the more commonly used RGB format.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-senseye_cameras.input.input">
+<span id="senseye-cameras-input-input-module"></span><h2>senseye_cameras.input.input module<a class="headerlink" href="#module-senseye_cameras.input.input" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="senseye_cameras.input.input.Input">
+<em class="property">class </em><code class="sig-prename descclassname">senseye_cameras.input.input.</code><code class="sig-name descname">Input</code><span class="sig-paren">(</span><em class="sig-param">id=0</em>, <em class="sig-param">config={}</em>, <em class="sig-param">defaults={}</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/input.html#Input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.input.Input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>General interface for cameras/other frame sources.</p>
+<dl class="method">
+<dt id="senseye_cameras.input.input.Input.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/input.html#Input.close"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.input.Input.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Properly disposes of the camera object.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.input.Input.get_prop">
+<code class="sig-name descname">get_prop</code><span class="sig-paren">(</span><em class="sig-param">name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/input.html#Input.get_prop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.input.Input.get_prop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets camera property.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.input.Input.open">
+<code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/input.html#Input.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.input.Input.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initializes the camera.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.input.Input.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/input.html#Input.read"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.input.Input.read" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="senseye_cameras.input.input.Input.set_prop">
+<code class="sig-name descname">set_prop</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/input.html#Input.set_prop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.input.Input.set_prop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets camera property.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-senseye_cameras.input.input_factory">
+<span id="senseye-cameras-input-input-factory-module"></span><h2>senseye_cameras.input.input_factory module<a class="headerlink" href="#module-senseye_cameras.input.input_factory" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="senseye_cameras.input.input_factory.create_input">
+<code class="sig-prename descclassname">senseye_cameras.input.input_factory.</code><code class="sig-name descname">create_input</code><span class="sig-paren">(</span><em class="sig-param">type='usb'</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/senseye_cameras/input/input_factory.html#create_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#senseye_cameras.input.input_factory.create_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Factory method for creating media input.
+Supports ‘usb’, ‘video’, ‘pylon’, ‘raw_video’, ‘audio_ffmpeg’, ‘audio_port’.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-senseye_cameras.input">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-senseye_cameras.input" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, SenseyeInc
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
