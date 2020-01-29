@@ -1,14 +1,10 @@
 from setuptools import setup
 
-# Get version number from version file
-with open('.version', 'r') as f:
-    VERSION = f.read()
-
 setup(
     name='senseye_cameras',
     description='Senseye Camera Utilities',
     author='Senseye Inc',
-    version=VERSION,
+    version='0.1.0',
     packages=[
         'senseye_cameras',
         'senseye_cameras.input',
