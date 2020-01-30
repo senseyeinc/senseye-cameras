@@ -20,7 +20,7 @@ jobs:
     - name: Publish distribution 📦 to Test PyPI
       env:
         password: ${{ secrets.test_pypi_password }}
-      run: python -m twine upload --repository_url https://test.pypi.org/legacy/ dist/* -u senseye -p "${password}"
+      run: python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/* -u senseye -p "${password}"
       # run: python -m twine upload dist/*
       # with:
       #   username: senseye
