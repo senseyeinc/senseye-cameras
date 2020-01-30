@@ -1,6 +1,6 @@
 name: Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
 
-on: push
+on: release
 
 jobs:
     build-n-publish:
@@ -18,12 +18,10 @@ jobs:
     - name: Build a binary wheel and a source tarball
         run: python setup.py bdist_wheel
     - name: Publish distribution to test PyPI
-        if: startsWith(github.event.ref, 'refs/tags')
         env:
             password: ${{ secrets.test_pypi_password }}
         run: python -m twine upload --repository-url https://test.pypi.org/legacy/ dist/* -u senseye -p "${password}"
     - name: Publish distribution to PyPI
-        if: startsWith(github.event.ref, 'refs/tags')
         env:
             password: ${{ secrets.pypi_password }}
         run: python -m twine upload --repository-url https://pypi.org/legacy/ dist/* -u senseye -p "${password}"
