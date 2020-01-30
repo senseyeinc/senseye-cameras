@@ -1,7 +1,7 @@
 from setuptools import setup
 from pathlib import Path
 
-readme = str(Path(__file__).parent.absolute(), 'README.md')
+readme = str(Path(Path(__file__).parent.absolute(), 'README.md'))
 long_description = open(readme, encoding='utf-8').read()
 
 setup(
