@@ -29,43 +29,45 @@ class CameraUeye(Input):
         if(ueye.is_InitCamera(self.input, None) != ueye.IS_SUCCESS):
             log.error("is_InitCamera ERROR")
 
-        # sensor info
-        sInfo = ueye.SENSORINFO()
+
+
         pcImageMemory = ueye.c_mem_p()
         MemID = ueye.int()
-        rectAOI = ueye.IS_RECT()
         pitch = ueye.INT()
-        nBitsPerPixel = ueye.INT(24)    #24: bits per pixel for color mode; take 8 bits per pixel for monochrome
         channels = 3                    #3: channels for color mode(RGB); take 1 channel for monochrome
-        m_nColorMode = ueye.INT()		# Y8/RGB16/RGB24/REG32
-        bytes_per_pixel = int(nBitsPerPixel / 8)
 
-        if int.from_bytes(sInfo.nColorMode.value, byteorder='big') == ueye.IS_COLORMODE_BAYER:
+        # get the color mode
+        sensor_info = ueye.SENSORINFO()
+        color_mode = int.from_bytes(sensor_info.nColorMode.value, byteorder='big')
+        m_nColorMode = ueye.INT()		# Y8/RGB16/RGB24/REG32
+
+        # determine the number of bits/bytes per pixel through the color mode
+        nBitsPerPixel = ueye.INT(24)
+        if color_mode == ueye.IS_COLORMODE_BAYER:
             # setup the color depth to the current windows setting
             ueye.is_GetColorDepth(self.input, nBitsPerPixel, m_nColorMode)
-            bytes_per_pixel = int(nBitsPerPixel / 8)
-        elif int.from_bytes(sInfo.nColorMode.value, byteorder='big') == ueye.IS_COLORMODE_CBYCRY:
+        elif color_mode == ueye.IS_COLORMODE_CBYCRY:
             m_nColorMode = ueye.IS_CM_BGRA8_PACKED
             nBitsPerPixel = ueye.INT(32)
-            bytes_per_pixel = int(nBitsPerPixel / 8)
-        elif int.from_bytes(sInfo.nColorMode.value, byteorder='big') == ueye.IS_COLORMODE_MONOCHROME:
+        elif color_mode == ueye.IS_COLORMODE_MONOCHROME:
             m_nColorMode = ueye.IS_CM_MONO8
             nBitsPerPixel = ueye.INT(8)
-            bytes_per_pixel = int(nBitsPerPixel / 8)
         else:
             m_nColorMode = ueye.IS_CM_MONO8
             nBitsPerPixel = ueye.INT(8)
-            bytes_per_pixel = int(nBitsPerPixel / 8)
+        bytes_per_pixel = int(nBitsPerPixel / 8)
 
+
+        # determine width/height of the image
+        # can also be used to set an area of interest
         # Can be used to set the size and position of an "area of interest"(AOI) within an image
+        rectAOI = ueye.IS_RECT()
         nRet = ueye.is_AOI(self.input, ueye.IS_AOI_IMAGE_GET_AOI, rectAOI, ueye.sizeof(rectAOI))
         if nRet != ueye.IS_SUCCESS:
             print("is_AOI ERROR")
-
         width = rectAOI.s32Width
         height = rectAOI.s32Height
 
-        #---------------------------------------------------------------------------------------------------------------------------------------
 
         # Allocates an image memory for an image having its dimensions defined by width and height and its color depth defined by nBitsPerPixel
         nRet = ueye.is_AllocImageMem(self.input, width, height, nBitsPerPixel, pcImageMemory, MemID)
@@ -89,8 +91,6 @@ class CameraUeye(Input):
         nRet = ueye.is_InquireImageMem(self.input, pcImageMemory, MemID, width, height, nBitsPerPixel, pitch)
         if nRet != ueye.IS_SUCCESS:
             print("is_InquireImageMem ERROR")
-        else:
-            print("Press q to leave the programm")
 
         self.pcImageMemory = pcImageMemory
         self.width = width
@@ -107,7 +107,7 @@ class CameraUeye(Input):
         Reads in raw video.
         config['res'] dictates how many bytes are read in.
         '''
-        array = ueye.get_data(self.pcImageMemory, self.width, self.height, self.nBitsPerPixel, self.pitch, copy=True)
+        array = ueye.get_data(self.pcImageMemory, self.width, self.height, self.nBitsPerPixel, self.pitch, copy=False)
         frame = np.reshape(array, (self.height.value, self.width.value, self.bytes_per_pixel))
         return frame, time.time()
 
