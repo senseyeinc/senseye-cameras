@@ -5,6 +5,25 @@ The senseye_cameras module is a generic camera interface written by SenseyeInc.
 
 It allows Python developers to easily grab frames from multiple types of cameras and write them to disk.
 
+Camera Support
+============
+
+senseye_cameras supports these inputs:
+
+usb cameras
+compressed video files
+raw video files
+usb microphones
+basler pylon cameras
+    pylon and pypylon must be installed: https://github.com/Basler/pypylon/releases
+ids ueye cameras
+    pyueye must be installed. You can install it via pip install . [ueye]
+
+
+The senseye_cameras module is a generic camera interface written by SenseyeInc.
+
+It allows Python developers to easily grab frames from multiple types of cameras and write them to disk.
+
 Modules
 ============
 

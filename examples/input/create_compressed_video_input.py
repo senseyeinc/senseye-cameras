@@ -11,7 +11,7 @@ video = str(
 )
 
 # initialize and open a usb camera
-camera = create_input(type='raw_video', id=video, config={'res': (1920, 1080)})
+camera = create_input(type='usb', id=video, config={'res': (1920, 1080)})
 
 camera.open()
 frame, timestamp = camera.read()

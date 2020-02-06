@@ -23,4 +23,7 @@ setup(
         'numpy',
         'opencv-python',
     ],
+    extras_require = {
+        'ueye': pyueye,
+    }
 )

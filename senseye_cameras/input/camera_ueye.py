@@ -1,9 +1,9 @@
 import time
 import logging
 import numpy as np
+from pyueye import ueye
 
 from . input import Input
-from pyueye import ueye
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
