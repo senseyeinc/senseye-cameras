@@ -49,6 +49,9 @@ class CameraUeye(Input):
             self.bytes_per_pixel
         '''
         sensor_info = ueye.SENSORINFO()
+        nRet = ueye.is_GetSensorInfo(self.input, sensor_info)
+        log.info(f'sensor info: {sensor_info}')
+
         color_mode = int.from_bytes(sensor_info.nColorMode.value, byteorder='big')
         self.m_nColorMode = ueye.INT()		# Y8/RGB16/RGB24/REG32
 
@@ -111,6 +114,42 @@ class CameraUeye(Input):
         if nRet != ueye.IS_SUCCESS:
             print("is_InquireImageMem ERROR")
 
+    def initialize_camera_settings(self):
+        '''Sets exposure, fps.'''
+        # get max pixel clock
+        pixel_clock_range = (ueye.c_uint * 3)()
+        ret = ueye.is_PixelClock(self.input, ueye.IS_PIXELCLOCK_CMD_GET_RANGE, pixel_clock_range, 3 * ueye.sizeof(ueye.UINT()))
+        log.info(f'pixel_clock max: {pixel_clock_range[0]}, pixel_clock min: {pixel_clock_range[1]}, ret val: {ret}')
+        # max out pixel clock
+        pixel_clock = ueye.c_int(pixel_clock_range[1])
+        ret = ueye.is_PixelClock(self.input, ueye.IS_PIXELCLOCK_CMD_SET, pixel_clock, ueye.sizeof(pixel_clock))
+        self.config['pixel_clock'] = pixel_clock.value
+        log.info(f'Actual pixel clock: {pixel_clock}, ret val: {ret}')
+
+        # max out frame rate
+        target_frame_rate = ueye.double(100.0)
+        actual_frame_rate = ueye.double(0.0)
+        ret = ueye.is_SetFrameRate(self.input, target_frame_rate, actual_frame_rate)
+        self.config['fps'] = actual_frame_rate.value
+        log.info(f'Attempted to set frame rate to {target_frame_rate}, ret value: {ret}, actual frame rate: {actual_frame_rate}')
+
+        # max out exposure
+        target_exposure = ueye.double(100.0)
+        actual_exposure = ueye.double(0.0)
+        ret = ueye.is_Exposure(self.input, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, target_exposure, ueye.sizeof(target_exposure))
+        get_ret = ueye.is_Exposure(self.input, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, actual_exposure, ueye.sizeof(actual_exposure))
+        self.config['exposure'] = actual_exposure.value
+        log.info(f'Attempted to set exposure to {target_exposure}, ret value: {ret}, actual frame rate: {actual_exposure}')
+
+        # enable autofocus
+        ret = ueye.is_Focus(self.input, ueye.FOC_CMD_SET_ENABLE_AUTOFOCUS, None, 0)
+        # ret = ueye.is_Focus(self.input, ueye.FOC_CMD_SET_ENABLE_AUTOFOCUS, ueye.double(0), ueye.sizeof(ueye.double(0)))
+        log.info(f'ret: {ret}')
+
+        # enable autogain
+        ret = ueye.is_SetAutoParameter(self.input, ueye.IS_SET_ENABLE_AUTO_GAIN, ueye.double(1), ueye.double(0))
+        log.info(f'ret: {ret}')
+
     def open(self):
         '''Opens and initializes ueye camera.'''
         # initialize camera
@@ -121,12 +160,16 @@ class CameraUeye(Input):
         self.initialize_dimensions()
         self.initialize_memory()
         self.initialize_modes()
-
-        # ueye.is_Exposure(self.input, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, ueye.double(25.0), 8)
+        self.initialize_camera_settings()
 
     def read(self):
         array = ueye.get_data(self.pcImageMemory, self.width, self.height, self.bits_per_pixel, self.pitch, copy=False)
         frame = np.reshape(array, (self.height.value, self.width.value, self.bytes_per_pixel))
+        # 
+        # import cv2
+        # frame = cv2.resize(frame,(0,0),fx=0.5, fy=0.5)
+        # cv2.imshow("SimpleLive_Python_uEye_OpenCV", frame)
+        # cv2.waitKey(1)
         return frame, time.time()
 
     def close(self):

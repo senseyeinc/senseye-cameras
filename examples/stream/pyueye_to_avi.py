@@ -3,17 +3,12 @@ from senseye_cameras import Stream
 
 s = Stream(
     input_type='ueye', id=0,
-    output_type='ffmpeg', path='./tmp/usb.mp4', output_config = {
-                'fps': 80,
-                'pixel_format': 'gray',
-                'format': 'rawvideo',
-                'res': (3088,2076),
-            },
+    output_type='raw', path='./tmp/usb.raw',
     reading=True,
-    writing=True,
+    writing=False,
 )
 s.start()
 
-time.sleep(3)
+time.sleep(100)
 
 s.stop()
