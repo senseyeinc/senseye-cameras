@@ -20,10 +20,15 @@ class CameraUeye(Input):
     '''
 
     def __init__(self, id=0, config={}):
-        defaults = {}
+        defaults = {
+            'fps': 60,
+            'exposure': 60,
+            'autofocus': 1,
+            'autogain': 1,
+        }
         Input.__init__(self, id=id, config=config, defaults=defaults)
 
-        self.input = ueye.HIDS(0)
+        self.input = ueye.HIDS(self.id)
 
     def initialize_dimensions(self):
         '''
@@ -39,6 +44,7 @@ class CameraUeye(Input):
             print("is_AOI ERROR")
         self.width = rectAOI.s32Width
         self.height = rectAOI.s32Height
+        self.config['res'] = (self.width.value, self.height.value)
 
     def initialize_color_mode(self):
         '''
@@ -48,12 +54,10 @@ class CameraUeye(Input):
             self.bits_per_pixel
             self.bytes_per_pixel
         '''
+        # get color mode
         sensor_info = ueye.SENSORINFO()
-        nRet = ueye.is_GetSensorInfo(self.input, sensor_info)
-        log.info(f'sensor info: {sensor_info}')
-
         color_mode = int.from_bytes(sensor_info.nColorMode.value, byteorder='big')
-        self.m_nColorMode = ueye.INT()		# Y8/RGB16/RGB24/REG32
+        self.m_nColorMode = ueye.INT()
 
         # determine the number of bits/bytes per pixel through the color mode
         bits_per_pixel = ueye.INT(24)
@@ -76,25 +80,25 @@ class CameraUeye(Input):
         '''
         Allocates image memory.
         Sets:
-            self.MemID
-            self.pcImageMemory
+            self.mem_id
+            self.mem_image
         '''
         # Allocates an image memory for an image having its dimensions defined by width and height and its color depth defined by nBitsPerPixel
-        MemID = ueye.int()
-        pcImageMemory = ueye.c_mem_p()
-        nRet = ueye.is_AllocImageMem(self.input, self.width, self.height, self.bits_per_pixel, pcImageMemory, MemID)
+        mem_id = ueye.int()
+        mem_image = ueye.c_mem_p()
+        nRet = ueye.is_AllocImageMem(self.input, self.width, self.height, self.bits_per_pixel, mem_image, mem_id)
         if nRet != ueye.IS_SUCCESS:
             print("is_AllocImageMem ERROR")
         else:
             # Makes the specified image memory the active memory
-            nRet = ueye.is_SetImageMem(self.input, pcImageMemory, MemID)
+            nRet = ueye.is_SetImageMem(self.input, mem_image, mem_id)
             if nRet != ueye.IS_SUCCESS:
                 print("is_SetImageMem ERROR")
             else:
                 # Set the desired color mode
                 nRet = ueye.is_SetColorMode(self.input, self.m_nColorMode)
-        self.MemID = MemID
-        self.pcImageMemory = pcImageMemory
+        self.mem_id = mem_id
+        self.mem_image = mem_image
 
     def initialize_modes(self):
         '''
@@ -110,7 +114,7 @@ class CameraUeye(Input):
 
         # Enables the queue mode for existing image memory sequences
         self.pitch = ueye.INT()
-        nRet = ueye.is_InquireImageMem(self.input, self.pcImageMemory, self.MemID, self.width, self.height, self.bits_per_pixel, self.pitch)
+        nRet = ueye.is_InquireImageMem(self.input, self.mem_image, self.mem_id, self.width, self.height, self.bits_per_pixel, self.pitch)
         if nRet != ueye.IS_SUCCESS:
             print("is_InquireImageMem ERROR")
 
@@ -127,14 +131,14 @@ class CameraUeye(Input):
         log.info(f'Actual pixel clock: {pixel_clock}, ret val: {ret}')
 
         # max out frame rate
-        target_frame_rate = ueye.double(100.0)
+        target_frame_rate = ueye.double(self.config.get('fps'))
         actual_frame_rate = ueye.double(0.0)
         ret = ueye.is_SetFrameRate(self.input, target_frame_rate, actual_frame_rate)
         self.config['fps'] = actual_frame_rate.value
         log.info(f'Attempted to set frame rate to {target_frame_rate}, ret value: {ret}, actual frame rate: {actual_frame_rate}')
 
         # max out exposure
-        target_exposure = ueye.double(100.0)
+        target_exposure = ueye.double(self.config.get('exposure'))
         actual_exposure = ueye.double(0.0)
         ret = ueye.is_Exposure(self.input, ueye.IS_EXPOSURE_CMD_SET_EXPOSURE, target_exposure, ueye.sizeof(target_exposure))
         get_ret = ueye.is_Exposure(self.input, ueye.IS_EXPOSURE_CMD_GET_EXPOSURE, actual_exposure, ueye.sizeof(actual_exposure))
@@ -142,13 +146,12 @@ class CameraUeye(Input):
         log.info(f'Attempted to set exposure to {target_exposure}, ret value: {ret}, actual frame rate: {actual_exposure}')
 
         # enable autofocus
-        ret = ueye.is_Focus(self.input, ueye.FOC_CMD_SET_ENABLE_AUTOFOCUS, None, 0)
-        # ret = ueye.is_Focus(self.input, ueye.FOC_CMD_SET_ENABLE_AUTOFOCUS, ueye.double(0), ueye.sizeof(ueye.double(0)))
-        log.info(f'ret: {ret}')
+        if self.config.get('autofocus'):
+            ret = ueye.is_Focus(self.input, ueye.FOC_CMD_SET_ENABLE_AUTOFOCUS, None, 0)
 
         # enable autogain
-        ret = ueye.is_SetAutoParameter(self.input, ueye.IS_SET_ENABLE_AUTO_GAIN, ueye.double(1), ueye.double(0))
-        log.info(f'ret: {ret}')
+        if self.config.get('autogain'):
+            ret = ueye.is_SetAutoParameter(self.input, ueye.IS_SET_ENABLE_AUTO_GAIN, ueye.double(1), ueye.double(0))
 
     def open(self):
         '''Opens and initializes ueye camera.'''
@@ -163,15 +166,10 @@ class CameraUeye(Input):
         self.initialize_camera_settings()
 
     def read(self):
-        array = ueye.get_data(self.pcImageMemory, self.width, self.height, self.bits_per_pixel, self.pitch, copy=False)
+        array = ueye.get_data(self.mem_image, self.width, self.height, self.bits_per_pixel, self.pitch, copy=False)
         frame = np.reshape(array, (self.height.value, self.width.value, self.bytes_per_pixel))
-        # 
-        # import cv2
-        # frame = cv2.resize(frame,(0,0),fx=0.5, fy=0.5)
-        # cv2.imshow("SimpleLive_Python_uEye_OpenCV", frame)
-        # cv2.waitKey(1)
         return frame, time.time()
 
     def close(self):
-        ueye.is_FreeImageMem(self.input, self.pcImageMemory, self.MemID)
+        ueye.is_FreeImageMem(self.input, self.mem_image, self.mem_id)
         ueye.is_ExitCamera(self.input)
