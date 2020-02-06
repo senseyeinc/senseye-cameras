@@ -11,20 +11,23 @@ log = logging.getLogger(__name__)
 
 class CameraUeye(Input):
     '''
-    Camera that interfaces with  cameras.
+    Camera that interfaces with ueye cameras.
 
     Args:
-        id (int): Id of the pylon camera.
+        id (int): Id of the ueye camera.
         config (dict): Configuration dictionary. Accepted keywords:
-            pfs (str): path to a pfs file.
+            fps (int): desired frames per second
+            exposure (str): desired exposure
+            autofocus (bool): whether to enable autofocus
+            autogain (bool): whether to enable autogain
     '''
 
     def __init__(self, id=0, config={}):
         defaults = {
             'fps': 60,
             'exposure': 60,
-            'autofocus': 1,
-            'autogain': 1,
+            'autofocus': True,
+            'autogain': True,
         }
         Input.__init__(self, id=id, config=config, defaults=defaults)
 
@@ -119,7 +122,7 @@ class CameraUeye(Input):
             print("is_InquireImageMem ERROR")
 
     def initialize_camera_settings(self):
-        '''Sets exposure, fps.'''
+        '''Sets pixel_clock, fps, exposure, autofocus, autogain based on self.config.'''
         # get max pixel clock
         pixel_clock_range = (ueye.c_uint * 3)()
         ret = ueye.is_PixelClock(self.input, ueye.IS_PIXELCLOCK_CMD_GET_RANGE, pixel_clock_range, 3 * ueye.sizeof(ueye.UINT()))
