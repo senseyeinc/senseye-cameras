@@ -44,7 +44,7 @@ class CameraUeye(Input):
         rectAOI = ueye.IS_RECT()
         nRet = ueye.is_AOI(self.input, ueye.IS_AOI_IMAGE_GET_AOI, rectAOI, ueye.sizeof(rectAOI))
         if nRet != ueye.IS_SUCCESS:
-            print("is_AOI ERROR")
+            log.error("is_AOI ERROR")
         self.width = rectAOI.s32Width
         self.height = rectAOI.s32Height
         self.config['res'] = (self.width.value, self.height.value)
@@ -91,12 +91,12 @@ class CameraUeye(Input):
         mem_image = ueye.c_mem_p()
         nRet = ueye.is_AllocImageMem(self.input, self.width, self.height, self.bits_per_pixel, mem_image, mem_id)
         if nRet != ueye.IS_SUCCESS:
-            print("is_AllocImageMem ERROR")
+            log.error("is_AllocImageMem ERROR")
         else:
             # Makes the specified image memory the active memory
             nRet = ueye.is_SetImageMem(self.input, mem_image, mem_id)
             if nRet != ueye.IS_SUCCESS:
-                print("is_SetImageMem ERROR")
+                log.error("is_SetImageMem ERROR")
             else:
                 # Set the desired color mode
                 nRet = ueye.is_SetColorMode(self.input, self.m_nColorMode)
@@ -113,13 +113,13 @@ class CameraUeye(Input):
         # Activates the camera's live video mode (free run mode)
         nRet = ueye.is_CaptureVideo(self.input, ueye.IS_DONT_WAIT)
         if nRet != ueye.IS_SUCCESS:
-            print("is_CaptureVideo ERROR")
+            log.error("is_CaptureVideo ERROR")
 
         # Enables the queue mode for existing image memory sequences
         self.pitch = ueye.INT()
         nRet = ueye.is_InquireImageMem(self.input, self.mem_image, self.mem_id, self.width, self.height, self.bits_per_pixel, self.pitch)
         if nRet != ueye.IS_SUCCESS:
-            print("is_InquireImageMem ERROR")
+            log.error("is_InquireImageMem ERROR")
 
     def initialize_camera_settings(self):
         '''Sets pixel_clock, fps, exposure, autofocus, autogain based on self.config.'''

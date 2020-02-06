@@ -17,6 +17,8 @@ usb microphones
 basler pylon cameras
     pylon and pypylon must be installed: https://github.com/Basler/pypylon/releases
 ids ueye cameras
+    the ueye sdk can be installed here: https://en.ids-imaging.com/download-ueye-win64.html
+
 
 Modules
 ============
