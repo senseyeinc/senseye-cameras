@@ -1,9 +1,8 @@
+import ffmpeg
 import logging
 from pathlib import Path
-from subprocess import Popen, PIPE
 
 from . output import Output
-from .. utils import ffmpeg_string
 
 log = logging.getLogger(__name__)
 
@@ -24,78 +23,80 @@ class VideoFfmpeg(Output):
             res (tuple)
     '''
 
-    def __init__(self, path=None, config={}):
+    def __init__(self, **kwargs):
         defaults = {
             'fps': 30,
             'pixel_format': 'rgb24',
             'format': 'rawvideo',
+            'file_codec': {},
         }
-        Output.__init__(self, path=path, config=config, defaults=defaults)
+        Output.__init__(self, defaults=defaults, **kwargs)
 
-        # update codec based on suffix
-        self.generate_codec()
+        self.generate_file_codec()
+        self.initialize()
 
-        self.process = None
 
-    def generate_codec(self):
+    def generate_file_codec(self):
         '''Determines a good codec to use based on path.suffix.'''
         codec_lookup = {
-            '.avi': 'huffyuv',
-            '.mp4': 'libx264 -crf 0 -preset ultrafast',
-            '.mkv': 'h264 -crf 23 -preset ultrafast',
-            '.yuv': 'rawvideo',
+            '.avi': {'vcodec': 'huffyuv'},
+            '.mp4': {'vcodec': 'libx264', 'crf': 0, 'preset': 'ultrafast'},
+            '.mkv': {'vcodec': 'h264', 'crf': 23, 'preset': 'ultrafast'},
+            '.yuv': {'vcodec': 'rawvideo'}
         }
 
         suffix = Path(self.path).suffix
-        self.config['codec'] = codec_lookup.get(suffix, 'huffyuv')
+        self.config['file_codec'] = codec_lookup.get(suffix, 'huffyuv')
 
-    def initialize_recorder(self, frame=None):
+    def initialize(self):
         '''
         Ffmpeg requires us to pass in frame size.
         Thus, we must have a frame to initialize our recorder.
         '''
-        try:
-            # if 'res' not in self.config:
-            #     self.config['res'] = (frame.shape[1], frame.shape[0])
-            # if 'width' not in self.config:
-            #     self.config['width'] = frame.shape[1]
-            # if 'height' not in self.config:
-            #     self.config['height'] = frame.shape[0]
-            # if 'channels' not in self.config:
-            #     if len(frame.shape) > 2:
-            #         self.config['channels'] = frame.shape[2]
-            #     else:
-            #         self.config['channels'] = 1
 
-            cmd = ffmpeg_string(path=self.tmp_path, **self.config)
-            self.process = Popen(cmd.split(), stdin=PIPE)
-            self.output = self.process.stdin
-            log.critical(cmd)
-        except Exception as e:
-            log.error(f'Failed to initialize recorder: {self.path} with exception: {e}.')
+        # only include pixel_format and size if we're encoding raw video.
+        raw_args = dict(
+            pix_fmt=self.config.get('pixel_format'),
+            s='1280x720'
+        ) if self.config['output_format'] == 'rawvideo' else {}
+
+        self.process = (
+            ffmpeg
+            .input(
+                'pipe:',
+                format=self.config.get('output_format'),
+                framerate=30,
+
+                **raw_args
+            )
+            .output(
+                self.tmp_path,
+                **self.config.get('file_codec'),
+            )
+            # hide logging
+            .global_args('-loglevel', 'error', '-hide_banner')
+            .overwrite_output()
+            .run_async(pipe_stdin=True)
+        )
+        log.info(f'Running command: {" ".join(self.process.args)}')
+        self.output = self.process.stdin
 
     def write(self, data=None):
         if data is None:
             return
 
-        if self.output is None:
-            self.initialize_recorder(frame=data)
-
         try:
             self.output.write(data)
-        except Exception as e:
-            print(e)
+        except: pass
 
     def close(self):
         '''
         Closes ffmpeg process.
         Renames tmp file.
-        When ffmpeg writes to a PIPE, communicate closes it cleanly.
         '''
         if self.process:
-            if self.process.poll() == None:
-                self.process.communicate()
+            self.process.stdin.close()
+            self.process.wait()
             Output.close(self)
-
         self.process = None
         self.output = None

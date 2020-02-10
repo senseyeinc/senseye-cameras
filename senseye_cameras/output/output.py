@@ -17,12 +17,12 @@ class Output:
     tmp_paths allow users to change 'path' while the 'tmp_path' is being written to.
     '''
 
-    def __init__(self, path=None, config={}, defaults={}):
+    def __init__(self, path=None, config={}, defaults={}, input_config={}):
         self.output = None
         self.set_path(path=path)
         self.set_tmp_path(path=self.path)
 
-        self.config = {**defaults, **config}
+        self.config = {**defaults, **input_config, **config}
         atexit.register(self.close)
 
     def set_path(self, path=None):

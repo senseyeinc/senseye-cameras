@@ -22,6 +22,7 @@ setup(
 
         'numpy',
         'opencv-python',
+        'ffmpeg-python',
         'pyueye; platform_system=="Windows"',
     ],
 )

@@ -46,7 +46,7 @@ class Reader(LoopThread):
 
 class Writer(LoopThread):
     '''Writes data from a queue into an output file.'''
-    def __init__(self, q, on_write=None, type='ffmpeg', config={}, path=0, frequency=None, writing=False):
+    def __init__(self, q, on_write=None, type='ffmpeg', config={}, path=0, frequency=None, writing=False, input_config={}):
         self.q = q
         self.on_write = on_write
         self.writing = writing
@@ -55,13 +55,14 @@ class Writer(LoopThread):
         self.type = type
         self.config = config
         self.path = path
+        self.input_config = input_config
 
         if self.frequency is None:
             self.frequency = self.config.get('fps', 100)
         LoopThread.__init__(self, frequency=self.frequency)
 
     def initialize_writer(self):
-        self.output = create_output(type=self.type, config=self.config, path=self.path)
+        self.output = create_output(type=self.type, config=self.config, path=self.path, input_config=self.input_config)
         log.info(f'Started {str(self.output)}. Config: {self.output.config}')
         self.frames_written = 0
 
@@ -134,7 +135,7 @@ class Stream(LoopThread):
         self.reader = Reader(self.q, on_read=self.on_read, type=self.input_type, config=self.input_config, id=self.id, frequency=self.input_frequency)
         self.reader.start()
 
-        self.writer = Writer(self.q, on_write=self.on_write, type=self.output_type, config=self.output_config, path=self.path, frequency=self.reader.frequency)
+        self.writer = Writer(self.q, on_write=self.on_write, type=self.output_type, config=self.output_config, path=self.path, frequency=self.reader.frequency, input_config=self.reader.input.config)
         self.writer.start()
 
         if reading:
