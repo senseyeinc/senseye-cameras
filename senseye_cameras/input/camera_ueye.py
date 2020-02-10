@@ -1,7 +1,10 @@
 import time
 import logging
 import numpy as np
-from pyueye import ueye
+try:
+    from pyueye import ueye
+except:
+    ueye = None
 
 from . input import Input
 
@@ -176,3 +179,9 @@ class CameraUeye(Input):
     def close(self):
         ueye.is_FreeImageMem(self.input, self.mem_image, self.mem_id)
         ueye.is_ExitCamera(self.input)
+
+if ueye is None:
+    class CameraUeye(Input):
+        def __init__(self, *args, **kargs):
+            Input.__init__(self)
+            log.error("Ueye not found")

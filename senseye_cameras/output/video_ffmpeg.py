@@ -42,7 +42,8 @@ class VideoFfmpeg(Output):
         codec_lookup = {
             '.avi': 'huffyuv',
             '.mp4': 'libx264 -crf 0 -preset ultrafast',
-            '.mkv': 'h264 -crf 23 -preset ultrafast'
+            '.mkv': 'h264 -crf 23 -preset ultrafast',
+            '.yuv': 'rawvideo',
         }
 
         suffix = Path(self.path).suffix
@@ -54,21 +55,22 @@ class VideoFfmpeg(Output):
         Thus, we must have a frame to initialize our recorder.
         '''
         try:
-            if 'res' not in self.config:
-                self.config['res'] = (frame.shape[1], frame.shape[0])
-            if 'width' not in self.config:
-                self.config['width'] = frame.shape[1]
-            if 'height' not in self.config:
-                self.config['height'] = frame.shape[0]
-            if 'channels' not in self.config:
-                if len(frame.shape) > 2:
-                    self.config['channels'] = frame.shape[2]
-                else:
-                    self.config['channels'] = 1
+            # if 'res' not in self.config:
+            #     self.config['res'] = (frame.shape[1], frame.shape[0])
+            # if 'width' not in self.config:
+            #     self.config['width'] = frame.shape[1]
+            # if 'height' not in self.config:
+            #     self.config['height'] = frame.shape[0]
+            # if 'channels' not in self.config:
+            #     if len(frame.shape) > 2:
+            #         self.config['channels'] = frame.shape[2]
+            #     else:
+            #         self.config['channels'] = 1
 
             cmd = ffmpeg_string(path=self.tmp_path, **self.config)
             self.process = Popen(cmd.split(), stdin=PIPE)
             self.output = self.process.stdin
+            log.critical(cmd)
         except Exception as e:
             log.error(f'Failed to initialize recorder: {self.path} with exception: {e}.')
 
@@ -81,7 +83,8 @@ class VideoFfmpeg(Output):
 
         try:
             self.output.write(data)
-        except: pass
+        except Exception as e:
+            print(e)
 
     def close(self):
         '''
