@@ -1,3 +1,4 @@
+import sys
 import time
 import ffmpeg
 import logging
@@ -25,16 +26,23 @@ class CameraFfmpeg(Input):
         }
         Input.__init__(self, id=id, config=config, defaults=defaults)
 
+    def get_format(self):
+        '''Get os specific format.'''
+        if 'linux' in sys.platform:
+            return 'v412'
+        if sys.platform == 'darwin':
+            return 'avfoundation'
+        return 'dshow'
+
     def open(self):
         '''
         Opens the ffmpeg subprocess and logs.
         '''
-
         self.process = (
             ffmpeg
             .input(
                 f'{self.id}',
-                format='avfoundation',
+                format=self.get_format(),
                 pix_fmt=self.config.get('pixel_format'),
                 framerate=self.config.get('fps'),
                 s=f'{self.config.get("res")[0]}x{self.config.get("res")[1]}',
