@@ -46,7 +46,7 @@ class VideoFfmpeg(Output):
         }
 
         suffix = Path(self.path).suffix
-        self.config['file_codec'] = codec_lookup.get(suffix, 'huffyuv')
+        self.config['file_codec'] = codec_lookup.get(suffix, codec_lookup['.yuv'])
 
     def initialize(self):
         '''
