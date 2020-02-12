@@ -22,6 +22,6 @@ setup(
 
         'numpy',
         'opencv-python',
-        'pyueye>=0.1.0; platform_system=="Windows"',
+        'pyueye==0.1.0; platform_system=="Windows"',
     ],
 )
