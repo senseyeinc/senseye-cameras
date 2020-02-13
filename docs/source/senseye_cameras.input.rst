@@ -20,6 +20,14 @@ senseye\_cameras.input.audio\_port\_input module
    :undoc-members:
    :show-inheritance:
 
+senseye\_cameras.input.camera\_ffmpeg module
+--------------------------------------------
+
+.. automodule:: senseye_cameras.input.camera_ffmpeg
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 senseye\_cameras.input.camera\_pylon module
 -------------------------------------------
 
@@ -32,6 +40,14 @@ senseye\_cameras.input.camera\_raw\_video module
 ------------------------------------------------
 
 .. automodule:: senseye_cameras.input.camera_raw_video
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+senseye\_cameras.input.camera\_ueye module
+------------------------------------------
+
+.. automodule:: senseye_cameras.input.camera_ueye
    :members:
    :undoc-members:
    :show-inheritance:

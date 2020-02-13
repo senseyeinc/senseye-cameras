@@ -18,7 +18,7 @@ class CameraFfmpeg(Input):
         defaults = {
             'fps': 30,
             'res': (1280, 720, 3),
-            'block_size': 65536,
+            'block_size': 16384,
 
             # pixel format of the camera
             'pixel_format': 'uyvy422',

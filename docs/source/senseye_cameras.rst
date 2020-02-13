@@ -36,14 +36,6 @@ senseye\_cameras.stream module
    :undoc-members:
    :show-inheritance:
 
-senseye\_cameras.utils module
------------------------------
-
-.. automodule:: senseye_cameras.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 
 Module contents
 ---------------

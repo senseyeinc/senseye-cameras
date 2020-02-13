@@ -44,14 +44,6 @@ senseye\_cameras.output.video\_ffmpeg module
    :undoc-members:
    :show-inheritance:
 
-senseye\_cameras.output.video\_ffmpeg\_bayer module
----------------------------------------------------
-
-.. automodule:: senseye_cameras.output.video_ffmpeg_bayer
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 senseye\_cameras.output.video\_raw module
 -----------------------------------------
 
