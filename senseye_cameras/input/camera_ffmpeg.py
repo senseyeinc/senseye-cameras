@@ -18,6 +18,7 @@ class CameraFfmpeg(Input):
         defaults = {
             'fps': 30,
             'res': (1280, 720, 3),
+            'block_size': 65536,
 
             # pixel format of the camera
             'pixel_format': 'uyvy422',
@@ -72,7 +73,7 @@ class CameraFfmpeg(Input):
                 frame = frame_str.reshape((self.config.get('res')[1], self.config.get('res')[0], self.config.get('res')[2]))
             else:
                 # directly read in bytes otherwise
-                frame = self.input.read(8192)
+                frame = self.input.read(self.block_size)
         except Exception as e:
             log.error(f"Ffmpeg camera error: {e}")
 
