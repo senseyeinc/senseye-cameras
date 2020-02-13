@@ -1,22 +1,14 @@
 import threading
 import time
 from logging import getLogger
-from abc import ABC, abstractmethod
 
 log = getLogger(__name__)
 
-class LoopThread(threading.Thread, ABC):
-    """
+
+class LoopThread(threading.Thread):
+    '''
     Class to follow common pattern of looping thread
-    """
-
-    class Stop(Exception):
-        """
-        Exception Type That will immediately break out of the loop
-        Can only be called from within the loop function
-        """
-        pass
-
+    '''
     def __init__(self, frequency=1000, stop_on_error=False):
         super().__init__(daemon=True)
 
@@ -76,10 +68,6 @@ class LoopThread(threading.Thread, ABC):
                 self.loop()
 
             except Exception as e:
-                if type(e) is LoopThread.Stop:
-                    log.info('Stopping LoopThread')
-                    break
-
                 log.exception(f'Uncaught Error in Looping Thread: {e}')
                 self.on_error(e)
 

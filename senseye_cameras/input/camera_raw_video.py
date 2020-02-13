@@ -13,7 +13,7 @@ class CameraRawVideo(Input):
     Args:
         id (str): path to the raw video file.
         config (dict): Configuration dictionary. Accepted keywords:
-            res (tuple): frame size
+            res (tuple): frame size in the format (width, height)
     '''
 
     def __init__(self, id=0, config={}):
