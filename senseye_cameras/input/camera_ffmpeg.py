@@ -73,7 +73,7 @@ class CameraFfmpeg(Input):
                 frame = frame_str.reshape((self.config.get('res')[1], self.config.get('res')[0], self.config.get('res')[2]))
             else:
                 # directly read in bytes otherwise
-                frame = self.input.read(self.block_size)
+                frame = self.input.read(self.config.get('block_size'))
         except Exception as e:
             log.error(f"Ffmpeg camera error: {e}")
 
