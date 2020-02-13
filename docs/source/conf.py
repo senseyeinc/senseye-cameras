@@ -55,5 +55,5 @@ html_theme = "sphinx_rtd_theme"
 html_static_path = ['_static']
 
 
-autodoc_mock_imports = ['cv2', 'numpy']
+autodoc_mock_imports = ['cv2', 'numpy', 'ffmpeg']
 master_doc = 'index'
