@@ -51,6 +51,7 @@ class Output:
         Writes config to path.
         '''
         try:
+            # make the stream reusable by creating a new tmp path
             old_tmp_path = self.tmp_path
             self.set_tmp_path(self.path)
             if self.path.exists():
