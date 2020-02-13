@@ -14,23 +14,22 @@ log = logging.getLogger(__name__)
 def create_input(type='usb', *args, **kwargs):
     '''
     Factory method for creating media input.
+    Supports 'audio_ffmpeg', 'audio_port', 'ffmpeg', 'pylon', 'raw_video', 'ueye', 'video', and 'usb'
     Supports 'usb', 'video', 'pylon', 'raw_video', 'audio_ffmpeg', 'audio_port'.
     '''
-    if type == 'usb' or type == 'video':
-        return CameraUsb(*args, **kwargs)
-    if type == 'pylon':
-        return CameraPylon(*args, **kwargs)
-    if type == 'raw_video':
-        return CameraRawVideo(*args, **kwargs)
-    if type == 'emergent':
-        return CameraEmergent(*args, **kwargs)
     if type == 'audio_ffmpeg':
         return AudioFfmpegInput(*args, **kwargs)
     if type == 'audio_port':
         return AudioPortInput(*args, **kwargs)
-    if type == 'ueye':
-        return CameraUeye(*args, **kwargs)
     if type == 'ffmpeg':
         return CameraFfmpeg(*args, **kwargs)
+    if type == 'pylon':
+        return CameraPylon(*args, **kwargs)
+    if type == 'raw_video':
+        return CameraRawVideo(*args, **kwargs)
+    if type == 'ueye':
+        return CameraUeye(*args, **kwargs)
+    if type == 'usb' or type == 'video':
+        return CameraUsb(*args, **kwargs)
 
     log.warning(f'Input type: {type} not supported.')
