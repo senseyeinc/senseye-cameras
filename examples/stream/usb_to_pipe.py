@@ -9,7 +9,6 @@ def callback(data):
 s = Stream(
     input_type='usb', id=0,
     output_type='h264_pipe', output_config={
-        'pixel_format': 'bgr24',
         'callback': callback
     },
     reading=True,

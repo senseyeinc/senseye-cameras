@@ -10,15 +10,21 @@ log = logging.getLogger(__name__)
 class H264Pipe(Output):
     '''
     Converts raw video to h264.
+    h264 data can be accessed by passing a callback to the config.
+
+    Args:
+        config (dict): Configuration dictionary. Accepted keywords:
+            callback (func): user passed in function that gives the user access to the h264 data.
+            block_size (int): amount of h264 bytes to read in the callback func.
+            fps: (int)
+            pixel_format (str): pixel format of the inputted raw video (eg: rgb24)
     '''
 
     def __init__(self, **kwargs):
         defaults = {
             'fps': 30,
             'pixel_format': 'rgb24',
-
             'callback': None,
-
             'block_size': 16384,
         }
         Output.__init__(self, defaults=defaults, **kwargs)
@@ -31,8 +37,7 @@ class H264Pipe(Output):
             .input(
                 'pipe:',
                 format='rawvideo',
-                # pix_fmt=self.config.get('pix_fmt'),
-                pix_fmt='rgb24',
+                pix_fmt=self.config.get('pixel_format'),
                 s=f'{self.config.get("res")[0]}x{self.config.get("res")[1]}',
                 framerate='30',
             )
