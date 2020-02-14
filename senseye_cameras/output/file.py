@@ -1,5 +1,6 @@
 import ffmpeg
 import logging
+import tempfile
 from pathlib import Path
 
 from . output import Output
@@ -7,11 +8,10 @@ from . output import Output
 log = logging.getLogger(__name__)
 
 
-class VideoFfmpeg(Output):
+class File(Output):
     '''
-    Records raw video using python file IO.
-    Writes to a temp file.
-    Renames the temp file once recording is done.
+    Records to a file.
+    Automatically detects the correct codec to use based on the path suffix.
 
     Args:
         path (str): Output path of video.
@@ -23,18 +23,22 @@ class VideoFfmpeg(Output):
             res (tuple)
     '''
 
-    def __init__(self, **kwargs):
+    def __init__(self, path=None, **kwargs):
         defaults = {
             'fps': 30,
             'pixel_format': 'rgb24',
             'format': 'rawvideo',
             'file_codec': {},
+            'output_format': 'rawvideo',
         }
         Output.__init__(self, defaults=defaults, **kwargs)
 
-        self.generate_file_codec()
-        self.initialize()
+        self.set_path(path=path)
+        self.set_tmp_path(path=self.path)
 
+        self.generate_file_codec()
+        if Path(self.path).suffix != '.raw':
+            self.initialize_ffmpeg()
 
     def generate_file_codec(self):
         '''Determines a good codec to use based on path.suffix.'''
@@ -48,25 +52,20 @@ class VideoFfmpeg(Output):
         suffix = Path(self.path).suffix
         self.config['file_codec'] = codec_lookup.get(suffix, codec_lookup['.yuv'])
 
-    def initialize(self):
-        '''
-        Ffmpeg requires us to pass in frame size.
-        Thus, we must have a frame to initialize our recorder.
-        '''
-
+    def initialize_ffmpeg(self):
+        '''Initializes ffmpeg.'''
         # only include pixel_format and size if we're encoding raw video.
         raw_args = dict(
             pix_fmt=self.config.get('pixel_format'),
             s='1280x720'
         ) if self.config['output_format'] == 'rawvideo' else {}
 
-        self.process = (
+        process = (
             ffmpeg
             .input(
                 'pipe:',
                 format=self.config.get('output_format'),
-                framerate=30,
-
+                framerate=self.config.get('fps'),
                 **raw_args
             )
             .output(
@@ -78,25 +77,41 @@ class VideoFfmpeg(Output):
             .overwrite_output()
             .run_async(pipe_stdin=True)
         )
-        log.info(f'Running command: {" ".join(self.process.args)}')
-        self.output = self.process.stdin
+        log.info(f'Running command: {" ".join(process.args)}')
+        self.output = process.stdin
+
+    def set_path(self, path=None):
+        '''Setter for self.path.'''
+        self.path = Path(path).absolute()
+        Path(self.path).parent.mkdir(parents=True, exist_ok=True)
+
+    def set_tmp_path(self, path):
+        '''Generates a tmpfile name in 'path's directory.'''
+        path = Path(path)
+        self.tmp_path = tempfile.NamedTemporaryFile(
+            prefix=path.stem,
+            dir=path.parent,
+            suffix=path.suffix,
+            delete=True
+        ).name
+
+        log.debug(f'{str(self)} tmp path set to {self.tmp_path}')
 
     def write(self, data=None):
-        if data is None:
-            return
-
-        try:
+        if data is not None and self.output:
             self.output.write(data)
-        except: pass
 
     def close(self):
-        '''
-        Closes ffmpeg process.
-        Renames tmp file.
-        '''
-        if self.process:
-            self.process.stdin.close()
-            self.process.wait()
+        if self.output:
+            self.output.close()
+            try:
+                # make the stream reusable by creating a new tmp path
+                old_tmp_path = self.tmp_path
+                self.set_tmp_path(self.path)
+                if self.path.exists():
+                    raise Exception(f'Rename from {old_tmp_path} to {self.path} failed, {self.path} already exists.')
+                Path(old_tmp_path).replace(self.path)
+            except Exception as e:
+                log.error(f'Recording rename failed: {e}')
             Output.close(self)
-        self.process = None
         self.output = None

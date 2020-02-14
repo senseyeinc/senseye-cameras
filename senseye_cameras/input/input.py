@@ -17,15 +17,6 @@ class Input:
         '''Initializes the camera.'''
         log.warning(f'Open not implemented for {str(self)}. There was most likely an error initializing this object.')
 
-    def set_prop(self, name, value):
-        '''Sets camera property.'''
-        log.warning(f'Set prop not implemented for {str(self)}')
-
-    def get_prop(self, name):
-        '''Gets camera property.'''
-        log.warning(f'Get prop not implemented for {str(self)}')
-        return None
-
     def read(self):
         log.debug(f'Read not implemented for {str(self)}')
         return None, None

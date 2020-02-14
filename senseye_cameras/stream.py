@@ -77,15 +77,6 @@ class Stream(LoopThread):
         self.reader.reading = False
         log.info(f'{str(self)} reading stopped - {time.time()}')
 
-    def set_prop(self, name=None, value=None):
-        if self.reader and self.reader.input:
-            self.reader.input.set_prop(name, value)
-
-    def get_prop(self, name=None):
-        if self.reader and self.reader.input:
-            return self.reader.input.get_prop(name)
-        return None
-
     ####################
     # WRITER FUNCTIONS
     ####################

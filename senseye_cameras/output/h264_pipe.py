@@ -9,12 +9,17 @@ log = logging.getLogger(__name__)
 
 class H264Pipe(Output):
     '''
-    Converts raw video to h264.
-    h264 data can be accessed by passing a callback to the config.
+    Outputs a h264 stream.
+    h264 data can be accessed by passing a callback to the config that access the data positional argument.
+        for example:
+            def my_callback(data):
+                print(f'My h264 bytestream data: {data}')
+            h264_pipe = H264Pipe(config={'callback': my_callback})
 
     Args:
         config (dict): Configuration dictionary. Accepted keywords:
             callback (func): user passed in function that gives the user access to the h264 data.
+                Accepts the data positional argument.
             block_size (int): amount of h264 bytes to read in the callback func.
             fps: (int)
             pixel_format (str): pixel format of the inputted raw video (eg: rgb24)
