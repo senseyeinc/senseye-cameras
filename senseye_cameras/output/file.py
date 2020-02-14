@@ -12,6 +12,7 @@ class File(Output):
     '''
     Records to a file.
     Automatically detects the correct codec to use based on the path suffix.
+    Supports suffixes: '.avi', '.mp4', '.mkv', '.yuv', '.raw'
 
     Args:
         path (str): Output path of video.
@@ -37,7 +38,9 @@ class File(Output):
         self.set_tmp_path(path=self.path)
 
         self.generate_file_codec()
-        if Path(self.path).suffix != '.raw':
+        if Path(self.path).suffix == '.raw':
+            self.output = open(self.tmp_path, 'bw')
+        else:
             self.initialize_ffmpeg()
 
     def generate_file_codec(self):
