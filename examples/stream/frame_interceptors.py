@@ -1,6 +1,14 @@
 import time
 from senseye_cameras import Stream
 
+'''
+Shows use of callbacks that allow users to process a frame right after it's read, and right before it's written.
+'''
+
+SLEEP_TIME = 5
+CAMERA_ID = 0
+FILE_PATH = './tmp/usb.mkv'
+
 frames_read = 0
 frames_written = 0
 
@@ -18,24 +26,15 @@ def on_frame_written(data):
 # every time a frame is read, call the function on_frame_read.
 # every time a frame is written, call the function on_frame_written.
 s = Stream(
-    input_type='usb', id=0,
-    output_type='ffmpeg', path='./tmp/usb.avi',
+    input_type='usb', id=CAMERA_ID,
+    output_type='file', path=FILE_PATH,
     on_read=on_frame_read,
     on_write=on_frame_written,
-    # whether to start reading immediately when start() is called
     reading=True,
-    # whether to start writing immediately when start() is called
-    writing=False,
+    writing=True,
 )
 s.start()
-
-time.sleep(2)
-
-# since the writing kwarg passed to Stream was False, we must manually tell the stream to start writing
-s.start_writing()
-
-time.sleep(5)
-
+time.sleep(SLEEP_TIME)
 s.stop()
 
 print(f'frames_read: {frames_read}')

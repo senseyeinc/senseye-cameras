@@ -47,5 +47,5 @@ class Writer(LoopThread):
             for data in purge:
                 self.output.write(data)
             self.output.close()
-            log.info(f'Stopped {str(self.output)}. Path: {self.output.path}. Frames written: {self.frames_written}')
+            log.info(f'Stopped {str(self.output)}.')
             self.frames_written = 0

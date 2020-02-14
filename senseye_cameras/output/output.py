@@ -10,7 +10,7 @@ class Output:
     Takes a path, config.
     '''
 
-    def __init__(self, config={}, defaults={}, input_config={}):
+    def __init__(self, config={}, defaults={}, input_config={}, **kwargs):
         self.output = None
         self.config = {**defaults, **input_config, **config}
         atexit.register(self.close)
@@ -20,7 +20,6 @@ class Output:
 
     def close(self):
         log.debug('close not implemented.')
-
 
     def __str__(self):
         return f'{self.__class__.__name__}'
