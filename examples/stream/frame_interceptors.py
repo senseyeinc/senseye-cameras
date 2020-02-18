@@ -31,9 +31,15 @@ s = Stream(
     on_read=on_frame_read,
     on_write=on_frame_written,
     reading=True,
-    writing=True,
+    writing=False,
 )
 s.start()
+
+time.sleep(1)
+
+# since the writing kwarg passed to the stream was False, we must manually start the stream
+s.start_writing()
+
 time.sleep(SLEEP_TIME)
 s.stop()
 
