@@ -31,12 +31,13 @@ class CameraPylon(Input):
         id (int): Id of the pylon camera.
         config (dict): Configuration dictionary. Accepted keywords:
             pfs (str): path to a pfs file.
+            encode_metadata (bool): whether to bake in timestamps/frame number into the frame.
     '''
 
     def __init__(self, id=0, config={}):
         defaults = {
             'pfs': None,
-            'channels': 1,
+            'encode_metadata': False,
         }
         Input.__init__(self, id=id, config=config, defaults=defaults)
         self.read_count = 0
@@ -61,9 +62,6 @@ class CameraPylon(Input):
 
     def open(self):
         self.read_count = 0
-        # quick tips & tricks:
-        # do not register the pylon camera with a software trigger - Mr. Brown
-        # use OneByOne over LatestImageOnly to prevent frame loss - Mr. Brown
         try:
             devices = pylon.TlFactory.GetInstance().EnumerateDevices()
             self.input = pylon.InstantCamera(pylon.TlFactory.GetInstance().CreateDevice(devices[self.id]))
@@ -84,13 +82,13 @@ class CameraPylon(Input):
                 if ret.IsValid():
                     frame = ret.GetArray()
                 now = time.time()
-                encode_timestamp(frame,now)
-                encode_framenumber(frame,self.read_count)
+                if self.config.get('encode_metadata'):
+                    encode_timestamp(frame,now)
+                    encode_framenumber(frame,self.read_count)
                 self.read_count+=1
             except TypeError as e:
                 log.error(f"{str(self)} read error: {e}")
             ret.Release()
-        if now is None: now = time.time()
         return frame, now
 
     def close(self):

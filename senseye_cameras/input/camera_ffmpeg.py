@@ -28,10 +28,7 @@ class CameraFfmpeg(Input):
             'fps': 30,
             'res': (1280, 720, 3),
             'block_size': 16384,
-
-            # pixel format of the camera
             'pixel_format': 'uyvy422',
-            # desired output format, eg: rawvideo, h264
             'output_format': 'rawvideo',
         }
         Input.__init__(self, id=id, config=config, defaults=defaults)
@@ -79,10 +76,10 @@ class CameraFfmpeg(Input):
                 frame_size = np.prod(np.array(self.config.get('res')))
                 frame_bytes = self.input.read(frame_size)
                 frame_str = np.fromstring(frame_bytes, dtype='uint8')
-                if len(self.config.get('res')) == 3:
-                    frame = frame_str.reshape((self.config.get('res')[1], self.config.get('res')[0], self.config.get('res')[2]))
-                else:
-                    frame = frame_str.reshape((self.config.get('res')[1], self.config.get('res')[0]))
+                # add shape metadata to the frame
+                # numpy expects (width, height, channels)
+                numpy_res = self.config.get('res')[1::-1] + self.config.get('res')[2:]
+                frame = frame_str.reshape(numpy_res)
             else:
                 # directly read in bytes otherwise
                 frame = self.input.read(self.config.get('block_size'))

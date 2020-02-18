@@ -81,7 +81,7 @@ The **close** function gracefully closes the Output object.
 
 Here's a simple example that creates and writes to a raw Output object.
 
-.. literalinclude:: ../../examples/output/create_raw_video_output.py
+.. literalinclude:: ../../examples/output/create_file_output.py
     :language: python
 
 
