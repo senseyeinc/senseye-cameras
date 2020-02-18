@@ -12,8 +12,7 @@ log = logging.getLogger(__name__)
 
 class Stream(LoopThread):
     '''
-    IO Stream with a reader/writer on seperate threads.
-
+    Links an Input with an Output.
     Args:
         input_type/input_config/id: see create_input.
         output_type/output_config/path: see create_output
@@ -50,10 +49,16 @@ class Stream(LoopThread):
         self.writer = self.reader = None
         atexit.register(self.stop)
 
-        self.reader = Reader(self.q, on_read=self.on_read, type=self.input_type, config=self.input_config, id=self.id, frequency=self.input_frequency)
+        self.reader = Reader(
+            self.q, on_read=self.on_read, type=self.input_type, config=self.input_config, frequency=self.input_frequency,
+            id=self.id,
+        )
         self.reader.start()
 
-        self.writer = Writer(self.q, on_write=self.on_write, type=self.output_type, config=self.output_config, path=self.path, frequency=self.reader.frequency, input_config=self.reader.input.config)
+        self.writer = Writer(
+            self.q, on_write=self.on_write, type=self.output_type, config=self.output_config, frequency=self.reader.frequency,
+            input_config=self.reader.input.config, path=self.path,
+        )
         self.writer.start()
 
         if reading:
@@ -62,6 +67,7 @@ class Stream(LoopThread):
             self.start_writing()
 
     def set_path(self, path=None):
+        '''Sets the writers' path.'''
         self.path = path
         if self.writer:
             self.writer.set_path(path)
@@ -70,10 +76,12 @@ class Stream(LoopThread):
     # READER FUNCTIONS
     ####################
     def start_reading(self):
+        '''Starts reading in frames.'''
         self.reader.reading = True
         log.info(f'{str(self)} reading started - {time.time()}')
 
     def stop_reading(self):
+        '''Stops reading in frames.'''
         self.reader.reading = False
         log.info(f'{str(self)} reading stopped - {time.time()}')
 
@@ -81,12 +89,14 @@ class Stream(LoopThread):
     # WRITER FUNCTIONS
     ####################
     def start_writing(self):
+        '''Starts writing frames.'''
         self.writer.initialize_writer()
         self.writer.writing = True
         self.reader.writing = True
         log.info(f'{str(self)} writing started - {time.time()}')
 
     def stop_writing(self):
+        '''Stops writing frames.'''
         self.writer.on_stop()
         self.writer.writing = False
         self.reader.writing = False
