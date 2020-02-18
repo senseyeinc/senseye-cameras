@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 def create_output(type='usb', *args, **kwargs):
     '''
     Factory method for creating recorders.
-    Supports types: 'raw', 'ffmpeg'
+    Supports types: 'file', 'h264_pipe'
     '''
     if type == 'h264_pipe':
         return H264Pipe(*args, **kwargs)

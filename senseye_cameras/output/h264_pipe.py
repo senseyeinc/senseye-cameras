@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 class H264Pipe(Output):
     '''
-    Outputs a h264 stream.
+    Converts raw video to a h264 stream.
     h264 data can be accessed by passing a callback to the config that access the data positional argument.
         for example:
             def my_callback(data):
