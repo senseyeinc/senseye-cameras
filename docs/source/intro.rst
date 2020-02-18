@@ -92,9 +92,9 @@ Streams
 
 The :py:meth:`Stream <senseye_cameras.stream>` module is a high level module that links a single Input and Output.
 
-Here's a simple example that creates a stream that uses a usb camera and writes to an avi file:
+Here's a simple example that creates a stream that opens a usb camera and writes frames to a file:
 
-.. literalinclude:: ../../examples/stream/usb_to_avi.py
+.. literalinclude:: ../../examples/stream/usb_to_file.py
     :language: python
 
 More examples can be found in the senseye_cameras/examples/stream folder.
