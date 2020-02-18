@@ -46,7 +46,7 @@ class H264Pipe(Output):
                 s=f'{self.config.get("res")[0]}x{self.config.get("res")[1]}',
                 framerate='30',
             )
-            .output('pipe:', format='h264')
+            .output('pipe:', format='h264', crf=20, preset='ultrafast')
             .global_args('-loglevel', 'error', '-hide_banner')
             .run_async(pipe_stdin=True, pipe_stdout=True)
         )

@@ -70,15 +70,16 @@ class CameraUeye(Input):
         if color_mode == ueye.IS_COLORMODE_BAYER:
             # setup the color depth to the current windows setting
             ueye.is_GetColorDepth(self.input, bits_per_pixel, self.m_nColorMode)
+            # TODO: unimplemented bayer pixel format
         elif color_mode == ueye.IS_COLORMODE_CBYCRY:
             self.m_nColorMode = ueye.IS_CM_BGRA8_PACKED
             bits_per_pixel = ueye.INT(32)
-        elif color_mode == ueye.IS_COLORMODE_MONOCHROME:
-            self.m_nColorMode = ueye.IS_CM_MONO8
-            bits_per_pixel = ueye.INT(8)
+            # TODO: test this once we get a suitable camera
+            self.config['pixel_format'] = 'bgra'
         else:
             self.m_nColorMode = ueye.IS_CM_MONO8
             bits_per_pixel = ueye.INT(8)
+            self.config['pixel_format'] = 'gray'
         self.bytes_per_pixel = int(bits_per_pixel / 8)
         self.bits_per_pixel = bits_per_pixel
 

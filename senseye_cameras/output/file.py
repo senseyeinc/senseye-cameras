@@ -18,7 +18,8 @@ class File(Output):
         path (str): Output path of video.
         config (dict): Configuration dictionary. Accepted keywords:
             fps (int)
-            pixel_format (str)
+            pixel_format (str): pixel format of the incoming raw video
+            output_pixel_format (str): desired pixel format of the resulting video file
             codec (str)
             format (str): defaults to 'rawvideo'
             res (tuple)
@@ -27,10 +28,9 @@ class File(Output):
     def __init__(self, path=None, **kwargs):
         defaults = {
             'fps': 30,
-            'pixel_format': 'rgb24',
-            'format': 'rawvideo',
+            'pixel_format': 'rawvideo',
+            'output_pixel_format': 'rgb24',
             'file_codec': {},
-            'output_format': 'rawvideo',
         }
         Output.__init__(self, defaults=defaults, **kwargs)
 
@@ -59,15 +59,15 @@ class File(Output):
         '''Initializes ffmpeg.'''
         # only include pixel_format and size if we're encoding raw video.
         raw_args = dict(
-            pix_fmt=self.config.get('pixel_format'),
+            pix_fmt=self.config.get('output_pixel_format'),
             s='1280x720'
-        ) if self.config['output_format'] == 'rawvideo' else {}
+        ) if self.config['pixel_format'] == 'rawvideo' else {}
 
         process = (
             ffmpeg
             .input(
                 'pipe:',
-                format=self.config.get('output_format'),
+                format=self.config.get('pixel_format'),
                 framerate=self.config.get('fps'),
                 **raw_args
             )

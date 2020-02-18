@@ -19,8 +19,8 @@ class CameraFfmpeg(Input):
             res (tuple): resolution in the format (width, height, channels)
             block_size (int): how many bytes to read from the camera if the camera outputs a stream of bytes.
 
-            pixel_format (str): pixel format of the camera (eg: bgr24, uyvy422)
-            output_format (str): desired ffmpeg output format of the camera (eg: rawvideo, h264)
+            camera_pixel_format (str): pixel format of the camera (eg: bgr24, uyvy422)
+            pixel_format (str): desired output pixel format of the camera (eg: rawvideo, h264)
     '''
 
     def __init__(self, id=0, config={}):
@@ -28,8 +28,8 @@ class CameraFfmpeg(Input):
             'fps': 30,
             'res': (1280, 720, 3),
             'block_size': 16384,
-            'pixel_format': 'uyvy422',
-            'output_format': 'rawvideo',
+            'camera_pixel_format': 'uyvy422',
+            'pixel_format': 'rawvideo',
         }
         Input.__init__(self, id=id, config=config, defaults=defaults)
 
@@ -50,11 +50,11 @@ class CameraFfmpeg(Input):
             .input(
                 f'{self.id}',
                 format=self.get_format(),
-                pix_fmt=self.config.get('pixel_format'),
+                pix_fmt=self.config.get('camera_pixel_format'),
                 framerate=self.config.get('fps'),
                 s=f'{self.config.get("res")[0]}x{self.config.get("res")[1]}',
             )
-            .output('pipe:', format=self.config.get('output_format'))
+            .output('pipe:', format=self.config.get('pixel_format'))
             # hide logging
             .global_args('-loglevel', 'error', '-hide_banner')
             # disable audio
@@ -71,7 +71,7 @@ class CameraFfmpeg(Input):
         frame = None
 
         try:
-            if self.config.get('output_format') == 'rawvideo':
+            if self.config.get('pixel_format') == 'rawvideo':
                 # convert rawvideo frames into a numpy array
                 frame_size = np.prod(np.array(self.config.get('res')))
                 frame_bytes = self.input.read(frame_size)
