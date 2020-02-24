@@ -5,7 +5,7 @@ readme = str(Path(Path(__file__).parent.absolute(), 'README.md'))
 long_description = open(readme, encoding='utf-8').read()
 
 setup(
-    name='senseye_cameras',
+    name='senseye-cameras',
     description='Senseye Camera Utilities',
     author='Senseye Inc',
     version='1.0.4',
@@ -22,4 +22,10 @@ setup(
         'ffmpeg-python',
         'senseye-pyueye',
     ],
+    project_urls={
+        "Download": "https://github.com/senseyeinc/senseye-cameras/releases",
+        "Source Code": "https://github.com/senseyeinc/senseye-cameras",
+        "Documentation": "https://senseye-cameras.readthedocs.io/en/latest/",
+        "Homepage": "http://senseye.co/",
+    },
 )
