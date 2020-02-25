@@ -26,6 +26,9 @@ class CameraUeye(Input):
     '''
 
     def __init__(self, id=0, config={}):
+        if ueye is None:
+            raise ImportError('Ueye failed to import. Ueye camera initialization failed.')
+
         defaults = {
             'fps': 60,
             'exposure': 60,
@@ -179,9 +182,3 @@ class CameraUeye(Input):
     def close(self):
         ueye.is_FreeImageMem(self.input, self.mem_image, self.mem_id)
         ueye.is_ExitCamera(self.input)
-
-if ueye is None:
-    class CameraUeye(Input):
-        def __init__(self, *args, **kargs):
-            Input.__init__(self)
-            log.error("Ueye not found")

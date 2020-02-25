@@ -35,6 +35,9 @@ class CameraPylon(Input):
     '''
 
     def __init__(self, id=0, config={}):
+        if pylon is None:
+            raise ImportError('Pylon failed to import. Pylon camera initialization failed.')
+            
         defaults = {
             'pfs': None,
             'encode_metadata': False,
@@ -96,9 +99,3 @@ class CameraPylon(Input):
         if self.input and self.input.IsOpen():
             self.input.Close()
             self.input = None
-
-if pylon is None:
-    class PylonCamera(Input):
-        def __init__(self, *args, **kargs):
-            Input.__init__(self)
-            log.error("PyPylon not found")
