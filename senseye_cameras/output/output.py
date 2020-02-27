@@ -13,6 +13,10 @@ class Output:
     def __init__(self, config={}, defaults={}, input_config={}, **kwargs):
         self.output = None
         self.config = {**defaults, **input_config, **config}
+        # ffmpeg expects gray, not mono8 pixel format.
+        if self.config.get('pixel_format') == 'mono8':
+            self.config['pixel_format'] = 'gray'
+
         atexit.register(self.close)
 
     def write(self, data=None):

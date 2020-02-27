@@ -31,6 +31,7 @@ class File(Output):
             'pixel_format': 'rawvideo',
             'output_pixel_format': 'rgb24',
             'file_codec': {},
+            'res': (1280, 720)
         }
         Output.__init__(self, defaults=defaults, **kwargs)
 
@@ -60,7 +61,7 @@ class File(Output):
         # only include pixel_format and size if we're encoding raw video.
         raw_args = dict(
             pix_fmt=self.config.get('output_pixel_format'),
-            s='1280x720'
+            s=f'{self.config.get("res")[0]}x{self.config.get("res")[1]}'
         ) if self.config['pixel_format'] == 'rawvideo' else {}
 
         process = (
