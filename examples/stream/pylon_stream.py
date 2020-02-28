@@ -15,7 +15,6 @@ s = Stream(
     output_type='file',
     output_config = {
         'fps': 80,
-        'pixel_format': 'gray',
     },
     path='./tmp/usb.mkv',
 
