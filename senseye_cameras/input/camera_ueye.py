@@ -34,6 +34,7 @@ class CameraUeye(Input):
             'exposure': 60,
             'autofocus': True,
             'autogain': True,
+            'format': 'rawvideo',
         }
         Input.__init__(self, id=id, config=config, defaults=defaults)
 

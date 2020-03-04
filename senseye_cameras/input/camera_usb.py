@@ -25,6 +25,7 @@ class CameraUsb(Input):
             'codec': 'MJPG',
             'use_dshow': 0,
             'channels': 3,
+            'format': 'rawvideo',
         }
         Input.__init__(self, id=id, config=config, defaults=defaults)
 

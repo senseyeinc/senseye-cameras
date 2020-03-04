@@ -19,7 +19,6 @@ class File(Output):
         config (dict): Configuration dictionary. Accepted keywords:
             fps (int)
             pixel_format (str): pixel format of the incoming raw video
-            output_pixel_format (str): desired pixel format of the resulting video file
             codec (str)
             format (str): defaults to 'rawvideo'
             res (tuple)
@@ -28,7 +27,8 @@ class File(Output):
     def __init__(self, path=None, **kwargs):
         defaults = {
             'fps': 30,
-            'pixel_format': 'rawvideo',
+            'format': 'rawvideo',
+            'pixel_format': 'rgb24',
             'output_pixel_format': 'rgb24',
             'file_codec': {},
             'res': (1280, 720)
@@ -60,15 +60,15 @@ class File(Output):
         '''Initializes ffmpeg.'''
         # only include pixel_format and size if we're encoding raw video.
         raw_args = dict(
-            pix_fmt=self.config.get('output_pixel_format'),
+            pix_fmt=self.config.get('pixel_format'),
             s=f'{self.config.get("res")[0]}x{self.config.get("res")[1]}'
-        ) if self.config['pixel_format'] == 'rawvideo' else {}
+        ) if self.config['format'] == 'rawvideo' else {}
 
-        process = (
+        self.process = (
             ffmpeg
             .input(
                 'pipe:',
-                format=self.config.get('pixel_format'),
+                format=self.config.get('format'),
                 framerate=self.config.get('fps'),
                 **raw_args
             )
@@ -81,8 +81,8 @@ class File(Output):
             .overwrite_output()
             .run_async(pipe_stdin=True)
         )
-        log.info(f'Running command: {" ".join(process.args)}')
-        self.output = process.stdin
+        log.info(f'Running command: {" ".join(self.process.args)}')
+        self.output = self.process.stdin
 
     def set_path(self, path=None):
         '''Setter for self.path.'''
@@ -108,6 +108,12 @@ class File(Output):
     def close(self):
         if self.output:
             self.output.close()
+
+            if self.process:
+                self.process.kill()
+                self.process.terminate()
+                self.process.wait()
+
             try:
                 # make the stream reusable by creating a new tmp path
                 old_tmp_path = self.tmp_path
