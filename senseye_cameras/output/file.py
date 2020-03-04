@@ -109,11 +109,9 @@ class File(Output):
         if self.output:
             self.output.close()
 
-            if self.process:
-                self.process.kill()
-                self.process.terminate()
-                self.process.wait()
-
+            if self.process and self.process.poll() == None:
+                self.process.communicate()
+                
             try:
                 # make the stream reusable by creating a new tmp path
                 old_tmp_path = self.tmp_path
