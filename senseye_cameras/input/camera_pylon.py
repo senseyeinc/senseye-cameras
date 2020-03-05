@@ -66,16 +66,13 @@ class CameraPylon(Input):
 
     def open(self):
         self.read_count = 0
-        try:
-            devices = pylon.TlFactory.GetInstance().EnumerateDevices()
-            self.input = pylon.InstantCamera(pylon.TlFactory.GetInstance().CreateDevice(devices[self.id]))
-            self.input.Open()
-            self.configure()
+        devices = pylon.TlFactory.GetInstance().EnumerateDevices()
+        self.input = pylon.InstantCamera(pylon.TlFactory.GetInstance().CreateDevice(devices[self.id]))
+        self.input.Open()
+        self.configure()
 
-            self.input.StopGrabbing()
-            self.input.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
-        except Exception as e:
-            log.error(f'{str(self)} open error: {e}')
+        self.input.StopGrabbing()
+        self.input.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
 
     def read(self):
         frame = None

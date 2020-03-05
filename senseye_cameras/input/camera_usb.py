@@ -56,14 +56,13 @@ class CameraUsb(Input):
     def open(self):
         # If specified, enable DSHOW. This is required for some camera APIs,
         # Specifically involved with choosing camera resolution
-        id = self.id
-        if self.config['use_dshow'] and type(id) is str:
-            id += cv2.CAP_DSHOW
+        if self.config['use_dshow'] and type(self.id) is str:
+            self.id += cv2.CAP_DSHOW
 
-        self.input = cv2.VideoCapture(id)
+        self.input = cv2.VideoCapture(self.id)
 
         if not self.input.isOpened():
-            log.warning(f'Video {self.id} failed to open. Video is corrupt, or an unreadable format.')
+            raise Exception(f'USB Camera {self.id} failed to open.')
         else:
             self.configure()
 
