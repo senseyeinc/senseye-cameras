@@ -100,5 +100,6 @@ More examples can be found in the senseye_cameras/examples/stream folder.
 Error handling
 ================
 
-Inputs/Outputs will fail loudly when initialization fails.s
+Inputs/Outputs will fail loudly when initialization fails.
+
 If initialization succeeds but a read/write fails, an Input/Output will typically catch the error and log it instead of erroring out.
