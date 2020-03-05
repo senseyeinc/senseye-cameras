@@ -8,7 +8,7 @@ setup(
     name='senseye-cameras',
     description='Senseye Camera Utilities',
     author='Senseye Inc',
-    version='1.0.4',
+    version='1.0.5',
     long_description=long_description,
     long_description_content_type='text/markdown',
     packages=[
