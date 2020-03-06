@@ -111,5 +111,8 @@ class Stream:
     def start(self):
         pass
 
+    def run(self):
+        pass
+
     def __str__(self):
         return f'{self.__class__.__name__}'
